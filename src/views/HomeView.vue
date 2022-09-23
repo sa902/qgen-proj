@@ -23,9 +23,11 @@ export default {
       name: "Pacific",
     },
     fallbackImage: "http://picsum.photos/id/1042/300/300",
+    dogData: null,
   }),
   created() {
     this.loadNextImage();
+    this.loadDogs();
   },
   methods: {
     loadNextImage() {
