@@ -2,8 +2,13 @@
   <div>
     {{ $store.getters.getSelectedDogBreedID }}
     <label for="dogs">Choose a dog:</label>
-    <select name="dogs" id="dogs" @change="selectedDog($event)">
-      <option v-for="(dog, i) in dogs" :key="i" :value="dog.id">
+    <select name="dogs" id="dogs" @change="selectedDog($event)" value="TEST">
+      <option
+        v-for="(dog, i) in dogs"
+        :selected="isSelected(dog)"
+        :key="i"
+        :value="dog.id"
+      >
         {{ dog.name }}
       </option>
     </select>
@@ -22,6 +27,12 @@ export default {
     this.getDogTypes();
   },
   methods: {
+    isSelected(dog) {
+      console.log("inside our function ");
+      if (dog.id === this.$store.getters.getSelectedDogBreedID) {
+        return "selected";
+      }
+    },
     selectedDog(ev) {
       console.log("selected dog ", ev.target.value);
       this.$store.dispatch("setSelectedDogBreedID", ev.target.value);

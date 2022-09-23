@@ -12,7 +12,7 @@
       <div class="card-highlight__body">
         <img
           class="card-highlight__image"
-          v-show="!data.image"
+          v-show="!data.url"
           :src="fallbackImage"
           alt=""
         />
@@ -56,7 +56,7 @@ export default {
     },
     fallbackImage: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   data() {
