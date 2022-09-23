@@ -1,18 +1,48 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <Card :fallback-image="fallbackImage" :data="dogMock"> </Card>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Card from "@/components/Card";
+import axios from "axios";
 
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+    Card,
+  },
+  data: () => ({
+    dogMock: {
+      date: "2020-04-20 12:20:00",
+      description:
+        "The Pacific ocean is located specifically between europe and the USA",
+      id: 9998,
+      image: "",
+      name: "Pacific",
+    },
+    fallbackImage: "http://picsum.photos/id/1042/300/300",
+  }),
+  created() {
+    this.loadNextImage();
+  },
+  methods: {
+    loadNextImage() {
+      const apiKey =
+        "live_DcRoox7Iaak72trJ1dnhDwbVfIBlSGQ3sX1Zxg6sha6Iwmd5DDPD1wRSh6OB1tHW";
+      axios
+        .get("https://api.thedogapi.com/v1/images/search", {
+          headers: { "x-api-key": apiKey },
+          params: { limit: 1, size: "full" },
+        })
+        .then((response) => {
+          this.image = response.data[0];
+          console.log("id:", this.image.id);
+          console.log("url:", this.image.url);
+          this.dogMock.image = this.image.url;
+        });
+    },
   },
 };
 </script>

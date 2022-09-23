@@ -1,0 +1,20 @@
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1400px
+);
+
+$default-card-highlight-color:#F7FFE2FF;
+$card-highlight-border-color:#f2f8f9;
+$card-highlight__hover-box-shadow: #26262633;
+$card-highlight__hover-border: #ff0808;
+$card-highlight__hover-background-color: white;
+$main-nav__list-color:#2182cd;
+$main-nav__link-hover-color: rgba(14, 59, 92, 0.93);
+
+:export{
+  defaultcardHighlightColor: $default-card-highlight-color;
+}

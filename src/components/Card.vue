@@ -1,0 +1,142 @@
+<template>
+  <div class="card-highlight" :style="cssVars">
+    <div class="card-highlight__wrapper">
+      <div class="card-highlight__header">
+        <h2 class="card-highlight__title">
+          {{ data.name }}
+        </h2>
+        <div class="card-highlight__icon">
+          <slot name="card-highlight__icon" />
+        </div>
+      </div>
+      <div class="card-highlight__body">
+        <div class="card-highlight__image">
+          <img v-show="!data.image" :src="fallbackImage" alt="" />
+          <img v-show="data.image" :src="data.image" alt="" />
+        </div>
+        <slot name="card-highlight__body-prepend" />
+        {{ data.description }}
+        <slot name="card-highlight__body-append" />
+      </div>
+      <div class="card-highlight__footer">
+        Published: {{ newsDate }}
+        <div class="card-highlight__actions">
+          <slot name="card-highlight__actions" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import variables from "../assets/_variables.scss";
+
+export default {
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: "Card",
+  components: {},
+  mixins: [],
+  props: {
+    data: {
+      type: Object,
+      required: false,
+    },
+    backgroundColor: {
+      type: String,
+      required: false,
+      default: variables.defaultcardHighlightColor,
+    },
+    fallbackImage: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    newsDate() {
+      // Highlight's news item date
+      let options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      let newDate = new Date(this.data.date);
+      return newDate.toLocaleDateString("en-US", options);
+    },
+    cssVars() {
+      return {
+        "--bg-color": this.$props.backgroundColor,
+      };
+    },
+  },
+  methods: {},
+  created() {},
+};
+</script>
+
+<style lang="scss" scoped>
+@use "../assets/_variables.scss";
+
+.card-highlight {
+  padding: 0.7em;
+  margin: 1em;
+  border-radius: 26px;
+  display: block;
+  position: relative;
+  right: 0px;
+  top: 0px;
+  background-color: variables.$default-card-highlight-color;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    transition: all 0.3s ease-out;
+    box-shadow: 0px 8px 16px variables.$card-highlight__hover-box-shadow;
+    right: -10px;
+    top: -10px;
+    border: 1px solid variables.$card-highlight__hover-border;
+    background-color: variables.$card-highlight__hover-background-color;
+  }
+
+  &:hover:before {
+    transform: scale(2.15);
+  }
+  &__wrapper {
+    padding: 0.7em;
+    height: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__header {
+    display: flex;
+    height: 52px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+  }
+
+  &__body {
+    flex: 1 0 auto;
+  }
+
+  &__footer {
+    align-self: flex-end;
+    padding: 1em;
+  }
+
+  @media only screen and (min-width: map-get(variables.$grid-breakpoints, "md")) {
+    flex-basis: calc(50% - 20px);
+    width: calc(50% - 20px);
+    padding: 0; // only for desktop
+    margin: 0; // only for desktop
+    max-width: 50%;
+  }
+}
+</style>
