@@ -3,21 +3,23 @@
     {{ $store.getters.getSelectedDogBreedID }}
     <label for="dogs">Choose a dog:</label>
     <select name="dogs" id="dogs" @change="selectedDog($event)" value="TEST">
-      <option
+      <CustomOption
         v-for="(dog, i) in dogs"
-        :selected="isSelected(dog)"
         :key="i"
+        :id="i"
         :value="dog.id"
+        :name="dog.name"
       >
-        {{ dog.name }}
-      </option>
+      </CustomOption>
     </select>
   </div>
 </template>
 
 <script>
+import CustomOption from "@/components/CustomOption";
 export default {
   name: "DropdownMenu",
+  components: { CustomOption },
   data: () => ({}),
   computed: {
     dogs() {
