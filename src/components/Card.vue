@@ -18,8 +18,8 @@
         />
         <img
           class="card-highlight__image"
-          v-show="data.image"
-          :src="data.image"
+          v-show="data.url"
+          :src="data.url"
           alt=""
         />
         <slot name="card-highlight__body-prepend" />

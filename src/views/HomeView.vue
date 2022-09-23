@@ -1,7 +1,14 @@
 <template>
   <div class="main-page">
+    <dropdown-menu> </dropdown-menu>
     <div class="main-page__body">
-      <Card :fallback-image="fallbackImage" :data="dogMock"> </Card>
+      <Card
+        v-for="(dog, i) in dogData"
+        :key="i"
+        :fallback-image="fallbackImage"
+        :data="dog"
+      >
+      </Card>
     </div>
   </div>
 </template>
@@ -9,11 +16,13 @@
 <script>
 import Card from "@/components/Card";
 import axios from "axios";
+import DropdownMenu from "@/components/DropdownMenu";
 
 export default {
   name: "HomeView",
   components: {
     Card,
+    DropdownMenu,
   },
   data: () => ({
     dogMock: {
@@ -28,16 +37,18 @@ export default {
   },
   methods: {
     loadNextImage() {
-      const apiKey =
-        "live_DcRoox7Iaak72trJ1dnhDwbVfIBlSGQ3sX1Zxg6sha6Iwmd5DDPD1wRSh6OB1tHW";
       axios
         .get("https://api.thedogapi.com/v1/images/search", {
-          headers: { "x-api-key": apiKey },
-          params: { limit: 1, size: "full" },
+          headers: { "x-api-key": this.$store.getters.getApiKey },
+          params: {
+            limit: 5,
+            size: "full",
+            breed_id: this.$store.getters.getSelectedDog,
+          },
         })
         .then((response) => {
-          this.image = response.data[0];
-          console.log(this.image);
+          this.dogData = response.data;
+          console.log(response);
           console.log("id:", this.image.id);
           console.log("url:", this.image.url);
           this.dogMock.image = this.image.url;
