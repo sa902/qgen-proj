@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -7,19 +8,38 @@ export default new Vuex.Store({
   state: {
     apiKey:
       "live_DcRoox7Iaak72trJ1dnhDwbVfIBlSGQ3sX1Zxg6sha6Iwmd5DDPD1wRSh6OB1tHW",
-    selectedDog: "test",
+    selectedDogBreedID: null,
+    selectedDogList: null,
   },
   getters: {
     getApiKey: (state) => state.apiKey,
-    getSelectedDog: (state) => state.selectedDog,
+    getSelectedDogBreedID: (state) => state.selectedDogBreedID,
+    getSelectedDogList: (state) => state.selectedDogList,
   },
   mutations: {
-    setSelectedDog: (state, newDogSelection) =>
-      (state.selectedDog = newDogSelection),
+    setSelectedDogBreedID: (state, newDogSelection) =>
+      (state.selectedDogBreedID = newDogSelection),
+    setSelectedDogList: (state, selectedDogList) =>
+      (state.selectedDogList = selectedDogList),
   },
   actions: {
-    setSelectedDog({ commit }, newDogSelection) {
-      commit("setSelectedDog", newDogSelection);
+    setSelectedDogBreedID({ commit, state }, newDogSelection) {
+      commit("setSelectedDogBreedID", newDogSelection);
+      axios
+        .get("https://api.thedogapi.com/v1/images/search", {
+          headers: { "x-api-key": state.apiKey },
+          params: {
+            limit: 5,
+            size: "full",
+            breed_id: newDogSelection,
+          },
+        })
+        .then((response) => {
+          commit("setSelectedDogList", response.data);
+        });
+    },
+    setSelectedDogList({ commit }, newDogList) {
+      commit("setSelectedDogList", newDogList);
     },
   },
   modules: {},

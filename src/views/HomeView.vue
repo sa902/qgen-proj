@@ -3,7 +3,7 @@
     <dropdown-menu> </dropdown-menu>
     <div class="main-page__body">
       <Card
-        v-for="(dog, i) in dogData"
+        v-for="(dog, i) in dogs"
         :key="i"
         :fallback-image="fallbackImage"
         :data="dog"
@@ -35,8 +35,14 @@ export default {
   created() {
     this.loadNextImage();
   },
+  computed: {
+    dogs() {
+      return this.$store.getters.getSelectedDogList;
+    },
+  },
   methods: {
     loadNextImage() {
+      //add some check for defaults
       axios
         .get("https://api.thedogapi.com/v1/images/search", {
           headers: { "x-api-key": this.$store.getters.getApiKey },

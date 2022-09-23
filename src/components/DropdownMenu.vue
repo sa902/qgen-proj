@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ $store.getters.getSelectedDog }}
+    {{ $store.getters.getSelectedDogBreedID }}
     <label for="dogs">Choose a dog:</label>
     <select name="dogs" id="dogs" @change="selectedDog($event)">
       <option v-for="(dog, i) in dogs" :key="i" :value="dog.id">
@@ -24,7 +24,7 @@ export default {
   methods: {
     selectedDog(ev) {
       console.log("selected dog ", ev.target.value);
-      this.$store.dispatch("setSelectedDog", ev.target.value);
+      this.$store.dispatch("setSelectedDogBreedID", ev.target.value);
     },
     getDogTypes() {
       console.log("api key ", this.$store.getters.getApiKey);
