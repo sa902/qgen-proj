@@ -10,10 +10,18 @@
         </div>
       </div>
       <div class="card-highlight__body">
-        <div class="card-highlight__image">
-          <img v-show="!data.image" :src="fallbackImage" alt="" />
-          <img v-show="data.image" :src="data.image" alt="" />
-        </div>
+        <img
+          class="card-highlight__image"
+          v-show="!data.image"
+          :src="fallbackImage"
+          alt=""
+        />
+        <img
+          class="card-highlight__image"
+          v-show="data.image"
+          :src="data.image"
+          alt=""
+        />
         <slot name="card-highlight__body-prepend" />
         {{ data.description }}
         <slot name="card-highlight__body-append" />
@@ -126,6 +134,10 @@ export default {
     flex: 1 0 auto;
   }
 
+  &__image {
+    max-width: 200px;
+    max-height: 200px;
+  }
   &__footer {
     align-self: flex-end;
     padding: 1em;

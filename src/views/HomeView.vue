@@ -1,6 +1,8 @@
 <template>
-  <div class="home">
-    <Card :fallback-image="fallbackImage" :data="dogMock"> </Card>
+  <div class="main-page">
+    <div class="main-page__body">
+      <Card :fallback-image="fallbackImage" :data="dogMock"> </Card>
+    </div>
   </div>
 </template>
 
@@ -15,19 +17,14 @@ export default {
   },
   data: () => ({
     dogMock: {
-      date: "2020-04-20 12:20:00",
-      description:
-        "The Pacific ocean is located specifically between europe and the USA",
       id: 9998,
       image: "",
-      name: "Pacific",
     },
     fallbackImage: "http://picsum.photos/id/1042/300/300",
     dogData: null,
   }),
   created() {
     this.loadNextImage();
-    this.loadDogs();
   },
   methods: {
     loadNextImage() {
@@ -40,6 +37,7 @@ export default {
         })
         .then((response) => {
           this.image = response.data[0];
+          console.log(this.image);
           console.log("id:", this.image.id);
           console.log("url:", this.image.url);
           this.dogMock.image = this.image.url;
@@ -48,3 +46,27 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@use "@/assets/_variables.scss";
+
+.main-page {
+  &__body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-gap: 1em;
+    row-gap: 1em;
+
+    @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+      display: flex;
+      justify-content: space-evenly;
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 1em;
+      row-gap: 1em;
+    }
+  }
+}
+</style>
