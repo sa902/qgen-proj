@@ -16,13 +16,14 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "DropdownMenu",
-  data: () => ({
-    dogs: null,
-  }),
+  data: () => ({}),
+  computed: {
+    dogs() {
+      return this.$store.getters.getDogTypes;
+    },
+  },
   created() {
     this.getDogTypes();
   },
@@ -39,14 +40,9 @@ export default {
     },
     getDogTypes() {
       console.log("api key ", this.$store.getters.getApiKey);
-      axios
-        .get("https://api.thedogapi.com/v1/breeds", {
-          headers: { "x-api-key": this.$store.getters.getApiKey },
-        })
-        .then((response) => {
-          this.dogs = response.data;
-          console.log(response);
-        });
+      if (this.$store.getters.getDogTypes === null) {
+        this.$store.dispatch("setDogTypes");
+      }
     },
   },
 };

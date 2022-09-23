@@ -11,12 +11,14 @@ export default new Vuex.Store({
     selectedDogBreedID: null,
     selectedDogList: null,
     allDogs: null,
+    dogTypes: null,
   },
   getters: {
     getApiKey: (state) => state.apiKey,
     getSelectedDogBreedID: (state) => state.selectedDogBreedID,
     getSelectedDogList: (state) => state.selectedDogList,
     getAllDogs: (state) => state.allDogs,
+    getDogTypes: (state) => state.dogTypes,
   },
   mutations: {
     setSelectedDogBreedID: (state, newDogSelection) =>
@@ -24,6 +26,7 @@ export default new Vuex.Store({
     setSelectedDogList: (state, selectedDogList) =>
       (state.selectedDogList = selectedDogList),
     setAllDogs: (state, allDogs) => (state.allDogs = allDogs),
+    setDogTypes: (state, dogTypes) => (state.dogTypes = dogTypes),
   },
   actions: {
     setSelectedDogBreedID({ commit, state }, newDogSelection) {
@@ -43,6 +46,15 @@ export default new Vuex.Store({
     },
     setSelectedDogList({ commit }, newDogList) {
       commit("setSelectedDogList", newDogList);
+    },
+    setDogTypes({ commit, state }) {
+      axios
+        .get("https://api.thedogapi.com/v1/breeds", {
+          headers: { "x-api-key": state.apiKey },
+        })
+        .then((response) => {
+          commit("setDogTypes", response.data);
+        });
     },
     setAllDogs({ commit, state }) {
       axios
