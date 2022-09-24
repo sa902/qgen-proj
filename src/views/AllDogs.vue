@@ -1,6 +1,8 @@
 <template>
   <div>
     test
+    <CustomToggle @slide="toggleOne"></CustomToggle>
+    <CustomToggle @slide="toggleTwo"></CustomToggle>
     <div class="main-page__body">
       <Card v-for="(dog, i) in dogs" :key="i" :data="dog"> </Card>
       <CustomPagination
@@ -15,12 +17,14 @@
 <script>
 import Card from "@/components/Card";
 import CustomPagination from "@/components/CustomPagination";
+import CustomToggle from "@/components/CustomToggle";
 
 export default {
   name: "AllDogs",
   components: {
     Card,
     CustomPagination,
+    CustomToggle,
   },
   created() {
     let allDogs = this.$store.getters.getAllDogs;
@@ -44,6 +48,12 @@ export default {
     },
   },
   methods: {
+    toggleOne() {
+      console.log("toggle one event ");
+    },
+    toggleTwo() {
+      console.log("toggle two even ");
+    },
     onPageChange(ev) {
       //TODO add something here that deletes all the dogs and triggers a reload skeleton
       //reload the dog page, set the page and call again.
