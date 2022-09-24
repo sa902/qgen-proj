@@ -12,6 +12,11 @@ export default new Vuex.Store({
     selectedDogList: null,
     allDogs: null,
     dogTypes: null,
+    //
+    order: "Desc",
+    page: 1,
+    limit: 10,
+    pagination_count: 0,
   },
   getters: {
     getApiKey: (state) => state.apiKey,
@@ -19,6 +24,10 @@ export default new Vuex.Store({
     getSelectedDogList: (state) => state.selectedDogList,
     getAllDogs: (state) => state.allDogs,
     getDogTypes: (state) => state.dogTypes,
+    getOrder: (state) => state.order,
+    getLimit: (state) => state.limit,
+    getPaginationCount: (state) => state.pagination_count,
+    getPage: (state) => state.page,
   },
   mutations: {
     setSelectedDogBreedID: (state, newDogSelection) =>
@@ -27,6 +36,11 @@ export default new Vuex.Store({
       (state.selectedDogList = selectedDogList),
     setAllDogs: (state, allDogs) => (state.allDogs = allDogs),
     setDogTypes: (state, dogTypes) => (state.dogTypes = dogTypes),
+    setOrder: (state, order) => (state.order = order),
+    setLimit: (state, limit) => (state.limit = limit),
+    setPaginationCount: (state, pagination_count) =>
+      (state.pagination_count = pagination_count),
+    setPage: (state, page) => (state.page = page),
   },
   actions: {
     setSelectedDogBreedID({ commit, state }, newDogSelection) {
@@ -56,19 +70,26 @@ export default new Vuex.Store({
           commit("setDogTypes", response.data);
         });
     },
+    setPage({ commit }, page) {
+      commit("setPage", page);
+    },
     setAllDogs({ commit, state }) {
       axios
         .get("https://api.thedogapi.com/v1/images/search", {
           headers: { "x-api-key": state.apiKey },
           params: {
-            limit: 10,
-            page: 0,
-            order: "Desc",
-            size: "full",
+            limit: state.limit,
+            order: state.order,
+            page: state.page - 1,
           },
         })
         .then((response) => {
           console.log("our response is ", response);
+          console.log(
+            "this is the pagination count ",
+            response.headers["pagination-count"]
+          );
+          commit("setPaginationCount", response.headers["pagination-count"]);
           commit("setAllDogs", response.data);
         });
     },

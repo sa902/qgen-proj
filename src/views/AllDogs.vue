@@ -3,17 +3,24 @@
     test
     <div class="main-page__body">
       <Card v-for="(dog, i) in dogs" :key="i" :data="dog"> </Card>
+      <CustomPagination
+        :total="getTotalPages"
+        @pageChange="onPageChange($event)"
+      >
+      </CustomPagination>
     </div>
   </div>
 </template>
 
 <script>
 import Card from "@/components/Card";
+import CustomPagination from "@/components/CustomPagination";
 
 export default {
   name: "AllDogs",
   components: {
     Card,
+    CustomPagination,
   },
   created() {
     let allDogs = this.$store.getters.getAllDogs;
@@ -29,6 +36,20 @@ export default {
         this.$store.getters.getAllDogs
       );
       return this.$store.getters.getAllDogs;
+    },
+    getTotalPages() {
+      let limit = this.$store.getters.getLimit;
+      let pagination_count = this.$store.getters.getPaginationCount;
+      return Math.floor(pagination_count / limit) | 0;
+    },
+  },
+  methods: {
+    onPageChange(ev) {
+      //TODO add something here that deletes all the dogs and triggers a reload skeleton
+      //reload the dog page, set the page and call again.
+      this.$store.dispatch("setPage", ev);
+      this.$store.dispatch("setAllDogs");
+      console.log("the pagination page changed", ev);
     },
   },
 };
