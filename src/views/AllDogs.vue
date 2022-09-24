@@ -1,6 +1,6 @@
 <template>
   <div>
-    test
+    All Dogs
     <CustomToggle @slide="toggleOne"></CustomToggle>
     <CustomToggle @slide="toggleTwo"></CustomToggle>
     <div class="main-page__body">

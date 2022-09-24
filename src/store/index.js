@@ -73,6 +73,16 @@ export default new Vuex.Store({
     setPage({ commit }, page) {
       commit("setPage", page);
     },
+    setDefaultPaginationParameters({ commit }) {
+      // order: "Desc",
+      //   page: 1,
+      //   limit: 10,
+      //   pagination_count: 0,
+      commit("setPage", 1);
+      commit("setLimit", 10);
+      commit("setPaginationCount", 0);
+      commit("setOrder", "Desc");
+    },
     setAllDogs({ commit, state }) {
       axios
         .get("https://api.thedogapi.com/v1/images/search", {
