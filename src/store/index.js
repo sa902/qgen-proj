@@ -49,7 +49,7 @@ export default new Vuex.Store({
         .get("https://api.thedogapi.com/v1/images/search", {
           headers: { "x-api-key": state.apiKey },
           params: {
-            limit: 5,
+            limit: 10,
             size: "full",
             breed_id: newDogSelection,
           },

@@ -33,7 +33,7 @@ export default {
     dogData: null,
   }),
   created() {
-    this.loadNextImage();
+    // this.loadNextImage();
   },
   computed: {
     dogs() {
@@ -47,7 +47,7 @@ export default {
         .get("https://api.thedogapi.com/v1/images/search", {
           headers: { "x-api-key": this.$store.getters.getApiKey },
           params: {
-            limit: 5,
+            limit: 10,
             size: "full",
             breed_id: this.$store.getters.getSelectedDog,
           },
