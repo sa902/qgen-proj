@@ -7,6 +7,7 @@
       <Card v-for="(dog, i) in dogs" :key="i" :data="dog"> </Card>
       <CustomPagination
         :total="getTotalPages"
+        :page-size="getPageSize"
         @pageChange="onPageChange($event)"
       >
       </CustomPagination>
@@ -42,9 +43,12 @@ export default {
       return this.$store.getters.getAllDogs;
     },
     getTotalPages() {
-      let limit = this.$store.getters.getLimit;
-      let pagination_count = this.$store.getters.getPaginationCount;
+      let limit = parseInt(this.$store.getters.getLimit);
+      let pagination_count = parseInt(this.$store.getters.getPaginationCount);
       return Math.floor(pagination_count / limit) | 0;
+    },
+    getPageSize() {
+      return parseInt(this.$store.getters.getLimit);
     },
   },
   methods: {
