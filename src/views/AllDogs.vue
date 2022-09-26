@@ -42,7 +42,7 @@ export default {
     page: 1,
     paginationCount: 0,
     dogs: null,
-    breedID: 222,
+    breedID: null,
   }),
   created() {
     this.getDogTypes();
@@ -61,8 +61,23 @@ export default {
     //   );
     //   return this.$store.getters.getAllDogs;
     // },
+    getBreedID() {
+      //use null as a breed id to get all dogs
+      let result = this.breedID === "0" ? null : this.breedID;
+      console.log("this is the result in get breed id ", result);
+      return result;
+    },
     allDogTypes() {
-      return this.$store.getters.getDogTypes;
+      let all = {
+        id: 0,
+        name: "All Dogs",
+      };
+      let storedDogTypes = this.$store.getters.getDogTypes;
+      if (storedDogTypes) {
+        return [all, ...storedDogTypes];
+      } else {
+        return null;
+      }
     },
     getTotalPages() {
       // let limit = parseInt(this.$store.getters.getLimit);
@@ -111,7 +126,7 @@ export default {
         limit: this.limit,
         order: this.order,
         page: this.page - 1,
-        breed_id: this.breedID,
+        breed_id: this.getBreedID,
       };
       // if (this.breedID !== null) {
       //   queryParams.breed_id = this.breedID;
