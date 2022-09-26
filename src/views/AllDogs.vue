@@ -4,6 +4,7 @@
     <CustomToggle @slide="toggleOne"></CustomToggle>
     <CustomToggle @slide="toggleTwo"></CustomToggle>
     <dropdown-menu
+      label-text="Choose a Dog"
       v-if="allDogTypes"
       :items="allDogTypes"
       @selectedItem="selectedDog"

@@ -1,7 +1,9 @@
 <template>
   <div>
     {{ $store.getters.getSelectedDogBreedID }}
-    <label>Choose a dog:</label>
+    <slot name="label">
+      <label>{{ labelText }} &nbsp;</label>
+    </slot>
     <select name="dogs" id="dogs" @change="selectedDog($event)">
       <CustomOption
         v-for="(item, i) in items"
@@ -22,6 +24,11 @@ export default {
   components: { CustomOption },
   data: () => ({}),
   props: {
+    labelText: {
+      required: false,
+      default: "Choose an item:",
+      type: String,
+    },
     items: {
       required: true,
       type: Array,
