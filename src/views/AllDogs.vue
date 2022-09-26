@@ -38,11 +38,11 @@ export default {
   },
   data: () => ({
     order: "Desc",
-    limit: 5,
+    limit: 10,
     page: 1,
     paginationCount: 0,
     dogs: null,
-    breed: null,
+    breedID: 222,
   }),
   created() {
     this.getDogTypes();
@@ -67,6 +67,10 @@ export default {
     getTotalPages() {
       // let limit = parseInt(this.$store.getters.getLimit);
       // let pagination_count = parseInt(this.$store.getters.getPaginationCount);
+      console.log(
+        "this is the new total pages ",
+        Math.floor(this.paginationCount / this.limit) | 0
+      );
       return Math.floor(this.paginationCount / this.limit) | 0;
     },
     getPageSize() {
@@ -107,7 +111,7 @@ export default {
         limit: this.limit,
         order: this.order,
         page: this.page - 1,
-        // breed_id: this.breedID,
+        breed_id: this.breedID,
       };
       // if (this.breedID !== null) {
       //   queryParams.breed_id = this.breedID;

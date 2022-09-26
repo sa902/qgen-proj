@@ -4,6 +4,7 @@
       @current-change="onchange($event)"
       layout="prev, pager, next"
       :total="total"
+      :key="key"
       :page-size="pageSize"
     >
     </el-pagination>
@@ -23,6 +24,9 @@ export default {
       type: Number,
     },
   },
+  data: () => ({
+    key: "pagination-",
+  }),
   created() {
     console.log(
       "this is the total ",
@@ -30,6 +34,12 @@ export default {
       "this is the page size ",
       this.pageSize
     );
+  },
+  watch: {
+    total(nv, ov) {
+      this.setKey();
+      console.log("this is the nv ", nv, "this is the old value ", ov);
+    },
   },
   computed: {
     // getTotalPages() {
@@ -45,6 +55,9 @@ export default {
     // },
   },
   methods: {
+    setKey() {
+      this.key = "pagination-" + Math.random();
+    },
     onchange(ev) {
       this.$emit("pageChange", ev);
     },
