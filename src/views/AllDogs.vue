@@ -7,7 +7,7 @@
       <Card v-for="(dog, i) in dogs" :key="i" :data="dog"> </Card>
       <CustomPagination
         :total="getTotalPages"
-        :page-size="getPageSize"
+        :page-size="limit"
         @pageChange="onPageChange($event)"
       >
       </CustomPagination>
@@ -19,6 +19,7 @@
 import Card from "@/components/Card";
 import CustomPagination from "@/components/CustomPagination";
 import CustomToggle from "@/components/CustomToggle";
+import axios from "axios";
 
 export default {
   name: "AllDogs",
@@ -27,28 +28,44 @@ export default {
     CustomPagination,
     CustomToggle,
   },
+  data: () => ({
+    order: "Desc",
+    limit: 10,
+    page: 1,
+    paginationCount: 0,
+    dogs: null,
+  }),
   created() {
     let allDogs = this.$store.getters.getAllDogs;
     if (allDogs === null) {
       console.log("setting all dogs first time");
       this.$store.dispatch("setAllDogs");
     }
+    this.updateDogsList();
+  },
+  watch: {
+    dogs(nv, ov) {
+      console.log("this is the dogs c hange ", ov, nv);
+    },
   },
   computed: {
-    dogs() {
-      console.log(
-        "inside our dogs function huh? ",
-        this.$store.getters.getAllDogs
-      );
-      return this.$store.getters.getAllDogs;
-    },
+    // dogs() {
+    //   console.log(
+    //     "inside our dogs function huh? ",
+    //     this.$store.getters.getAllDogs
+    //   );
+    //   return this.$store.getters.getAllDogs;
+    // },
     getTotalPages() {
-      let limit = parseInt(this.$store.getters.getLimit);
-      let pagination_count = parseInt(this.$store.getters.getPaginationCount);
-      return Math.floor(pagination_count / limit) | 0;
+      // let limit = parseInt(this.$store.getters.getLimit);
+      // let pagination_count = parseInt(this.$store.getters.getPaginationCount);
+      return Math.floor(this.paginationCount / this.limit) | 0;
     },
     getPageSize() {
-      return parseInt(this.$store.getters.getLimit);
+      return this.limit;
+    },
+    getAPIKey() {
+      return this.$store.getters.getApiKey;
     },
   },
   methods: {
@@ -61,9 +78,33 @@ export default {
     onPageChange(ev) {
       //TODO add something here that deletes all the dogs and triggers a reload skeleton
       //reload the dog page, set the page and call again.
-      this.$store.dispatch("setPage", ev);
-      this.$store.dispatch("setAllDogs");
+      this.page = ev;
+      this.updateDogsList();
+      // this.$store.dispatch("setPage", ev);
+      // this.$store.dispatch("setAllDogs");
       console.log("the pagination page changed", ev);
+    },
+    updateDogsList() {
+      axios
+        .get("https://api.thedogapi.com/v1/images/search", {
+          headers: { "x-api-key": this.getAPIKey },
+          params: {
+            limit: this.limit,
+            order: this.order,
+            page: this.page - 1,
+          },
+        })
+        .then((response) => {
+          console.log("our response is ", response);
+          console.log(
+            "this is the pagination count ",
+            response.headers["pagination-count"]
+          );
+          this.paginationCount = response.headers["pagination-count"];
+          // commit("setPaginationCount", response.headers["pagination-count"]);
+          this.dogs = response.data;
+          // this.$store.dispatch("setAllDogsTwo", response.data);
+        });
     },
   },
 };

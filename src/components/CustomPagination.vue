@@ -24,7 +24,12 @@ export default {
     },
   },
   created() {
-    console.log("this is the total ", this.total);
+    console.log(
+      "this is the total ",
+      this.total,
+      "this is the page size ",
+      this.pageSize
+    );
   },
   computed: {
     // getTotalPages() {

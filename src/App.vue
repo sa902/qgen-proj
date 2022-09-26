@@ -10,6 +10,16 @@
   </div>
 </template>
 
+<script>
+export default {
+  watch: {
+    $route(to, from) {
+      console.log("here the route is changing ");
+    },
+  },
+};
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

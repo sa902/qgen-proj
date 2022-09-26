@@ -103,6 +103,9 @@ export default new Vuex.Store({
           commit("setAllDogs", response.data);
         });
     },
+    setAllDogsTwo({ commit }, payload) {
+      commit("setAllDogs", payload);
+    },
   },
   modules: {},
 });
