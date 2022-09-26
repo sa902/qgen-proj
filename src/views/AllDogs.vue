@@ -71,7 +71,7 @@ export default {
         "this is the new total pages ",
         Math.floor(this.paginationCount / this.limit) | 0
       );
-      return Math.floor(this.paginationCount / this.limit) | 0;
+      return parseInt(this.paginationCount);
     },
     getPageSize() {
       return this.limit;
@@ -122,6 +122,7 @@ export default {
           params: queryParams,
         })
         .then((response) => {
+          console.log("this is the query reszponse ", response);
           this.paginationCount = response.headers["pagination-count"];
           this.dogs = response.data;
         });
