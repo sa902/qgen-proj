@@ -95,15 +95,8 @@ export default {
           },
         })
         .then((response) => {
-          console.log("our response is ", response);
-          console.log(
-            "this is the pagination count ",
-            response.headers["pagination-count"]
-          );
           this.paginationCount = response.headers["pagination-count"];
-          // commit("setPaginationCount", response.headers["pagination-count"]);
           this.dogs = response.data;
-          // this.$store.dispatch("setAllDogsTwo", response.data);
         });
     },
   },
