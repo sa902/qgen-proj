@@ -9,14 +9,14 @@ export default {
   name: "CustomOption",
   computed: {
     isSelected() {
-      console.log(
-        "this props id ",
-        this.value,
-        "this store getters ",
-        this.$store.getters.getSelectedDogBreedID
-      );
+      // console.log(
+      //   "this props id ",
+      //   this.value,
+      //   "this store getters ",
+      //   this.$store.getters.getSelectedDogBreedID
+      // );
       if (this.value === parseInt(this.$store.getters.getSelectedDogBreedID)) {
-        console.log("we found it");
+        // console.log("we found it");
         return "selected";
       } else {
         return null;

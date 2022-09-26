@@ -1,6 +1,12 @@
 <template>
   <div class="main-page">
-    <dropdown-menu> </dropdown-menu>
+    <!--    TODO put the lal types dog check inside the dropdown menu -->
+    <dropdown-menu
+      v-if="allDogTypes"
+      :items="allDogTypes"
+      @selectedItem="selectedDog"
+    >
+    </dropdown-menu>
     <div class="main-page__body">
       <Card
         v-for="(dog, i) in dogs"
@@ -15,8 +21,8 @@
 
 <script>
 import Card from "@/components/Card";
-import axios from "axios";
 import DropdownMenu from "@/components/DropdownMenu";
+import axios from "axios";
 
 export default {
   name: "HomeView",
@@ -25,39 +31,53 @@ export default {
     DropdownMenu,
   },
   data: () => ({
-    dogMock: {
-      id: 9998,
-      image: "",
-    },
     fallbackImage: "http://picsum.photos/id/1042/300/300",
     dogData: null,
+    order: "Desc",
+    limit: 10,
+    page: 1,
+    paginationCount: 0,
+    dogs: null,
+    breedID: 1,
   }),
   created() {
-    // this.loadNextImage();
+    this.getDogTypes();
+    this.updateDogsList();
   },
   computed: {
-    dogs() {
+    selectedDogType() {
+      console.log("this  dog types ", this.$store.getters.getSelectedDogList);
       return this.$store.getters.getSelectedDogList;
+    },
+    allDogTypes() {
+      return this.$store.getters.getDogTypes;
     },
   },
   methods: {
-    loadNextImage() {
-      //add some check for defaults
+    selectedDog(ev) {
+      this.breedID = ev;
+      this.updateDogsList();
+      console.log("this is the selected dog ", ev);
+    },
+    getDogTypes() {
+      if (this.$store.getters.getDogTypes === null) {
+        this.$store.dispatch("setDogTypes");
+      }
+    },
+    updateDogsList() {
       axios
         .get("https://api.thedogapi.com/v1/images/search", {
-          headers: { "x-api-key": this.$store.getters.getApiKey },
+          headers: { "x-api-key": this.getAPIKey },
           params: {
-            limit: 10,
-            size: "full",
-            breed_id: this.$store.getters.getSelectedDog,
+            limit: this.limit,
+            // order: this.order,
+            // page: this.page - 1,
+            breed_id: this.breedID,
           },
         })
         .then((response) => {
-          this.dogData = response.data;
-          console.log(response);
-          console.log("id:", this.image.id);
-          console.log("url:", this.image.url);
-          this.dogMock.image = this.image.url;
+          this.paginationCount = response.headers["pagination-count"];
+          this.dogs = response.data;
         });
     },
   },
