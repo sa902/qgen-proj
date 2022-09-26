@@ -14,7 +14,7 @@
 export default {
   watch: {
     $route(to, from) {
-      console.log("here the route is changing ");
+      console.log("here the route is changing ", to, from);
     },
   },
 };
