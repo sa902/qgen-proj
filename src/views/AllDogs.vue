@@ -30,7 +30,7 @@ export default {
   },
   data: () => ({
     order: "Desc",
-    limit: 10,
+    limit: 5,
     page: 1,
     paginationCount: 0,
     dogs: null,
@@ -92,6 +92,7 @@ export default {
             limit: this.limit,
             order: this.order,
             page: this.page - 1,
+            breed_id: 222,
           },
         })
         .then((response) => {
