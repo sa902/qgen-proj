@@ -13,14 +13,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@use "@/assets/_variables.scss";
+
 nav {
   padding: 30px;
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: variables.$main-nav__link-color;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: variables.$main-nav__link-selected-color;
+    }
+    &:hover {
+      color: variables.$main-nav__link-hover-color;
     }
   }
 }
