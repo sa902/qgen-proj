@@ -32,13 +32,13 @@
           {{ dog.breeds[0]?.weight?.metric }}
         </template>
       </Card>
-      <CustomPagination
-        :total="getTotalPages"
-        :page-size="limit"
-        @pageChange="onPageChange($event)"
-      >
-      </CustomPagination>
     </div>
+    <CustomPagination
+      :total="getTotalPages"
+      :page-size="limit"
+      @pageChange="onPageChange($event)"
+    >
+    </CustomPagination>
   </div>
 </template>
 
