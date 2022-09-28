@@ -8,11 +8,9 @@ export default new Vuex.Store({
   state: {
     apiKey:
       "live_DcRoox7Iaak72trJ1dnhDwbVfIBlSGQ3sX1Zxg6sha6Iwmd5DDPD1wRSh6OB1tHW",
-    selectedDogBreedID: null,
     selectedDogList: null,
     allDogs: null,
     dogTypes: null,
-    //
     order: "Asc",
     page: 1,
     limit: 10,
@@ -22,7 +20,6 @@ export default new Vuex.Store({
   },
   getters: {
     getApiKey: (state) => state.apiKey,
-    getSelectedDogBreedID: (state) => state.selectedDogBreedID,
     getSelectedDogList: (state) => state.selectedDogList,
     getAllDogs: (state) => state.allDogs,
     getDogTypes: (state) => state.dogTypes,
@@ -35,10 +32,6 @@ export default new Vuex.Store({
   },
   mutations: {
     setBreedID: (state, breedID) => (state.breedID = breedID),
-    setSelectedDogBreedID: (state, newDogSelection) =>
-      (state.selectedDogBreedID = newDogSelection),
-    setSelectedDogList: (state, selectedDogList) =>
-      (state.selectedDogList = selectedDogList),
     setAllDogs: (state, allDogs) => (state.allDogs = allDogs),
     setDogTypes: (state, dogTypes) => (state.dogTypes = dogTypes),
     setOrder: (state, order) => (state.order = order),
@@ -55,24 +48,6 @@ export default new Vuex.Store({
     setCardSize({ commit }, cardSize) {
       console.log("changing the state of the cards yo ");
       commit("setCardSize", cardSize);
-    },
-    setSelectedDogBreedID({ commit, state }, newDogSelection) {
-      commit("setSelectedDogBreedID", newDogSelection);
-      axios
-        .get("https://api.thedogapi.com/v1/images/search", {
-          headers: { "x-api-key": state.apiKey },
-          params: {
-            limit: 10,
-            size: "full",
-            breed_id: newDogSelection,
-          },
-        })
-        .then((response) => {
-          commit("setSelectedDogList", response.data);
-        });
-    },
-    setSelectedDogList({ commit }, newDogList) {
-      commit("setSelectedDogList", newDogList);
     },
     setDogTypes({ commit, state }) {
       axios
@@ -117,9 +92,6 @@ export default new Vuex.Store({
           commit("setPaginationCount", response.headers["pagination-count"]);
           commit("setAllDogs", response.data);
         });
-    },
-    setAllDogsTwo({ commit }, payload) {
-      commit("setAllDogs", payload);
     },
   },
   modules: {},

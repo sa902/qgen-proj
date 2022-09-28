@@ -9,13 +9,7 @@ export default {
   name: "CustomOption",
   computed: {
     isSelected() {
-      // console.log(
-      //   "this props id ",
-      //   this.value,
-      //   "this store getters ",
-      //   this.$store.getters.getSelectedDogBreedID
-      // );
-      if (this.value === parseInt(this.$store.getters.getSelectedDogBreedID)) {
+      if (this.value === parseInt(this.$store.getters.getBreedID)) {
         // console.log("we found it");
         return "selected";
       } else {

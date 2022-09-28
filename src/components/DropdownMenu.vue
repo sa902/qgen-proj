@@ -1,6 +1,5 @@
 <template>
   <div v-if="items">
-    {{ $store.getters.getSelectedDogBreedID }}
     <slot name="label">
       <label>{{ labelText }} &nbsp;</label>
     </slot>
@@ -45,7 +44,6 @@ export default {
   methods: {
     selectedDog(ev) {
       this.$emit("selectedItem", ev.target.value);
-      this.$store.dispatch("setSelectedDogBreedID", ev.target.value);
     },
     getDogTypes() {
       if (this.$store.getters.getDogTypes === null) {
