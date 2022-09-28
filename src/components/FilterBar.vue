@@ -1,9 +1,9 @@
 <template>
-  <div class="flex-container">
+  <div class="filter-bar">
     <!--    <span class="">-->
     <slot name="prepend"></slot>
     <!--    </span>-->
-    <span class="flex-item">
+    <span class="filter-bar__item">
       <font-awesome-icon
         @mouseover="hoveringBig = true"
         @mouseleave="hoveringBig = false"
@@ -16,7 +16,7 @@
       >
       </font-awesome-icon>
     </span>
-    <span class="flex-item__hide-on-mobile">
+    <span class="filter-bar__item--hide-on-mobile">
       <font-awesome-icon
         @mouseover="hoveringSmall = true"
         @mouseleave="hoveringSmall = false"
@@ -29,7 +29,7 @@
       >
       </font-awesome-icon>
     </span>
-    <span class="flex-item">
+    <span class="filter-bar__item">
       <font-awesome-icon
         @mouseover="hoveringTable = true"
         @mouseleave="hoveringTable = false"
@@ -82,18 +82,6 @@ export default {
       }
     },
   },
-  computed: {
-    // getColor() {
-    //   if (this.selected) {
-    //     return {
-    //       color: "#146ebe",
-    //     };
-    //   }
-    //   return {
-    //     color: "#183153",
-    //   };
-    // },
-  },
 };
 </script>
 
@@ -106,32 +94,8 @@ export default {
 .unselected {
   color: #183153;
 }
-.flex-item {
-  order: 0;
-  flex: 0 1 auto;
-  align-self: auto;
-  padding: 10px;
 
-  @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
-    order: 0;
-    flex: 0 1 auto;
-    align-self: auto;
-    padding: 20px;
-    margin: 20px;
-  }
-  &__hide-on-mobile {
-    visibility: hidden;
-    @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
-      order: 0;
-      flex: 0 1 auto;
-      align-self: center;
-      padding: 10px;
-      visibility: visible;
-    }
-  }
-}
-
-.flex-container {
+.filter-bar {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -148,6 +112,30 @@ export default {
     align-content: stretch;
     align-items: flex-start;
     padding: 20px;
+  }
+  &__item {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    padding: 10px;
+
+    @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+      order: 0;
+      flex: 0 1 auto;
+      align-self: auto;
+      padding: 20px;
+      margin: 20px;
+    }
+    &--hide-on-mobile {
+      visibility: hidden;
+      @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+        order: 0;
+        flex: 0 1 auto;
+        align-self: center;
+        padding: 10px;
+        visibility: visible;
+      }
+    }
   }
 }
 </style>

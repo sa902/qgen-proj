@@ -2,7 +2,7 @@
   <div class="main-page">
     <FilterBar>
       <template slot="prepend">
-        <span class="flex-item">
+        <span class="filter-bar__item">
           <dropdown-menu
             label-text="Choose a Dog"
             :items="allDogTypes"
