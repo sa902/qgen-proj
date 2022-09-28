@@ -33,11 +33,7 @@
       <font-awesome-icon
         @mouseover="hoveringTable = true"
         @mouseleave="hoveringTable = false"
-        @click="
-          (selectedTable = !selectedTable),
-            (selectedSmall = false),
-            (selectedBig = false)
-        "
+        @click="selectedTableClicked()"
         :fade="hoveringTable"
         class=""
         :class="[selectedTable ? 'selected' : 'unselected']"
@@ -73,12 +69,18 @@ export default {
       this.selectedSmall = !this.selectedSmall;
       this.selectedBig = false;
       this.selectedTable = false;
-      console.log("inside selected small , ", this.selectedSmall);
       if (this.selectedSmall) {
         this.$store.dispatch("setCardSize", "small");
       }
     },
-    selectedTableClicked() {},
+    selectedTableClicked() {
+      this.selectedTable = !this.selectedTable;
+      this.selectedSmall = false;
+      this.selectedBig = false;
+      if (this.selectedTable) {
+        this.$store.dispatch("setTableView", true);
+      }
+    },
   },
   computed: {
     // getColor() {

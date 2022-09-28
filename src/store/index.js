@@ -17,8 +17,10 @@ export default new Vuex.Store({
     pagination_count: 0,
     cardSize: "large",
     breedID: null,
+    tableView: false,
   },
   getters: {
+    getTableView: (state) => state.tableView,
     getApiKey: (state) => state.apiKey,
     getSelectedDogList: (state) => state.selectedDogList,
     getAllDogs: (state) => state.allDogs,
@@ -31,6 +33,7 @@ export default new Vuex.Store({
     getBreedID: (state) => state.breedID,
   },
   mutations: {
+    setTableView: (state, tableView) => (state.tableView = tableView),
     setBreedID: (state, breedID) => (state.breedID = breedID),
     setAllDogs: (state, allDogs) => (state.allDogs = allDogs),
     setDogTypes: (state, dogTypes) => (state.dogTypes = dogTypes),
@@ -42,11 +45,15 @@ export default new Vuex.Store({
     setCardSize: (state, cardSize) => (state.cardSize = cardSize),
   },
   actions: {
+    setTableView({ commit }, tableView) {
+      commit("setTableView", tableView);
+    },
     setBreedID({ commit }, breedID) {
       commit("setBreedID", breedID);
     },
     setCardSize({ commit }, cardSize) {
       console.log("changing the state of the cards yo ");
+      commit("setTableView", false);
       commit("setCardSize", cardSize);
     },
     setDogTypes({ commit, state }) {

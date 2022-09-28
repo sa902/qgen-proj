@@ -13,26 +13,28 @@
       </template>
     </FilterBar>
     <div class="main-page__body">
-      <Card
-        v-for="(dog, i) in dogs"
-        :key="i"
-        :data="dog"
-        :title="dog.breeds[0]?.name"
-      >
-        <template v-if="isLarge" slot="card-highlight__body-append">
-          <br />
-          Name: {{ dog.breeds[0]?.name }} &nbsp;
-          <br />
-          Breed Group: {{ dog.breeds[0]?.breed_group }}
-          <br />
-          Life Span: {{ dog.breeds[0]?.life_span }}
-          <br />
-          Temperament: {{ dog.breeds[0]?.temperament }}
-          <br />
-          Height (cm) x Weight (cm) = {{ dog.breeds[0]?.height?.metric }} x
-          {{ dog.breeds[0]?.weight?.metric }}
-        </template>
-      </Card>
+      <div v-if="!isTableView" class="main-page__body--card-view">
+        <Card
+          v-for="(dog, i) in dogs"
+          :key="i"
+          :data="dog"
+          :title="dog.breeds[0]?.name"
+        >
+          <template v-if="isLarge" slot="card-highlight__body-append">
+            <br />
+            Name: {{ dog.breeds[0]?.name }} &nbsp;
+            <br />
+            Breed Group: {{ dog.breeds[0]?.breed_group }}
+            <br />
+            Life Span: {{ dog.breeds[0]?.life_span }}
+            <br />
+            Temperament: {{ dog.breeds[0]?.temperament }}
+            <br />
+            Height (cm) x Weight (cm) = {{ dog.breeds[0]?.height?.metric }} x
+            {{ dog.breeds[0]?.weight?.metric }}
+          </template>
+        </Card>
+      </div>
     </div>
     <div class="main-page__footer">
       <CustomPagination
@@ -72,6 +74,9 @@ export default {
   computed: {
     dogs() {
       return this.$store.getters.getAllDogs;
+    },
+    isTableView() {
+      return this.$store.getters.getTableView ? true : false;
     },
     allDogTypes() {
       let all = {
@@ -148,20 +153,22 @@ export default {
 
 .main-page {
   &__body {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    column-gap: 1em;
-    row-gap: 1em;
-
-    @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+    &--card-view {
       display: flex;
-      justify-content: space-evenly;
-      flex-direction: row;
+      justify-content: center;
+      flex-direction: column;
       flex-wrap: wrap;
       column-gap: 1em;
       row-gap: 1em;
+
+      @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 1em;
+        row-gap: 1em;
+      }
     }
   }
 }
