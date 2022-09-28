@@ -211,12 +211,6 @@ export default {
       }
     }
     &--table-view {
-      //display: flex;
-      //justify-content: space-evenly;
-      //flex-direction: row;
-      //flex-wrap: wrap;
-      //column-gap: 1em;
-      //row-gap: 1em;
       width: 100%;
       @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
         flex-grow: 100;
