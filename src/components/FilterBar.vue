@@ -99,12 +99,12 @@ export default {
 
 <style scoped lang="scss">
 @use "@/assets/_variables.scss";
-selected {
-  color: #b7de2c;
+.selected {
+  color: #146ebe;
 }
 
 .unselected {
-  color: #000eff;
+  color: #183153;
 }
 .flex-item {
   order: 0;
