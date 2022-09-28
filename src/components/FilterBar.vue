@@ -16,7 +16,7 @@
       >
       </font-awesome-icon>
     </span>
-    <span class="flex-item">
+    <span class="flex-item__hide-on-mobile">
       <font-awesome-icon
         @mouseover="hoveringSmall = true"
         @mouseleave="hoveringSmall = false"
@@ -97,30 +97,57 @@ export default {
 };
 </script>
 
-<style scoped>
-.selected {
-  color: #146ebe;
+<style scoped lang="scss">
+@use "@/assets/_variables.scss";
+selected {
+  color: #b7de2c;
 }
 
 .unselected {
-  color: #183153;
+  color: #000eff;
 }
-
 .flex-item {
   order: 0;
   flex: 0 1 auto;
   align-self: auto;
-  padding: 20px;
-  margin: 20px;
+  padding: 10px;
+
+  @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    padding: 20px;
+    margin: 20px;
+  }
+  &__hide-on-mobile {
+    visibility: hidden;
+    @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+      order: 0;
+      flex: 0 1 auto;
+      align-self: center;
+      padding: 10px;
+      visibility: visible;
+    }
+  }
 }
 
 .flex-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-content: stretch;
   align-items: flex-start;
-  padding: 20px;
+  padding: 15px;
+  margin: 15px;
+  @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-content: stretch;
+    align-items: flex-start;
+    padding: 20px;
+  }
 }
 </style>
