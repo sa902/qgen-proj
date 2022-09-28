@@ -1,5 +1,5 @@
 <template>
-  <div class="card-highlight" :style="cssVars">
+  <div class="card-highlight" :style="size">
     <div class="card-highlight__wrapper">
       <div class="card-highlight__header">
         <h2 class="card-highlight__title">
@@ -78,10 +78,17 @@ export default {
       let newDate = new Date(this.data.date);
       return newDate.toLocaleDateString("en-US", options);
     },
-    cssVars() {
-      return {
-        "--bg-color": this.$props.backgroundColor,
-      };
+    size() {
+      let cardSize = this.$store.getters.getCardSize;
+      if (cardSize === "large") {
+        return {
+          "max-width": "50%",
+        };
+      } else {
+        return {
+          "max-width": "20%",
+        };
+      }
     },
   },
   methods: {},
@@ -154,7 +161,8 @@ export default {
     width: calc(50% - 20px);
     padding: 0; // only for desktop
     margin: 0; // only for desktop
-    max-width: 50%;
+    max-width: var(size);
+    //max-width: 20%;
   }
 }
 </style>

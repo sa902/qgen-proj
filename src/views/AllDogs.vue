@@ -1,7 +1,7 @@
 <template>
   <div>
     All Dogs
-    <CustomToggle @slide="toggleOne"></CustomToggle>
+    <CustomToggle @slide="toggleOne($event)"></CustomToggle>
     <CustomToggle @slide="toggleTwo"></CustomToggle>
     <dropdown-menu
       label-text="Choose a Dog"
@@ -16,7 +16,7 @@
         :data="dog"
         :title="dog.breeds[0]?.name"
       >
-        <template slot="card-highlight__body-append">
+        <template v-if="isLarge" slot="card-highlight__body-append">
           <br />
           Name: {{ dog.breeds[0]?.name }} &nbsp;
           <br />
@@ -115,10 +115,22 @@ export default {
     getAPIKey() {
       return this.$store.getters.getApiKey;
     },
+    isLarge() {
+      if (this.$store.getters.getCardSize === "large") {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
-    toggleOne() {
-      console.log("toggle one event ");
+    toggleOne(ev) {
+      if (ev) {
+        this.$store.dispatch("setCardSize", "small");
+      } else {
+        this.$store.dispatch("setCardSize", "large");
+      }
+      console.log("toggle one event ", ev);
     },
     validate(ev) {
       // TODO validate functino for the things in the card

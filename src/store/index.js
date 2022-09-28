@@ -17,6 +17,7 @@ export default new Vuex.Store({
     page: 1,
     limit: 10,
     pagination_count: 0,
+    cardSize: "large",
   },
   getters: {
     getApiKey: (state) => state.apiKey,
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     getLimit: (state) => state.limit,
     getPaginationCount: (state) => state.pagination_count,
     getPage: (state) => state.page,
+    getCardSize: (state) => state.cardSize,
   },
   mutations: {
     setSelectedDogBreedID: (state, newDogSelection) =>
@@ -41,8 +43,12 @@ export default new Vuex.Store({
     setPaginationCount: (state, pagination_count) =>
       (state.pagination_count = pagination_count),
     setPage: (state, page) => (state.page = page),
+    setCardSize: (state, cardSize) => (state.cardSize = cardSize),
   },
   actions: {
+    setCardSize({ commit }, cardSize) {
+      commit("setCardSize", cardSize);
+    },
     setSelectedDogBreedID({ commit, state }, newDogSelection) {
       commit("setSelectedDogBreedID", newDogSelection);
       axios
