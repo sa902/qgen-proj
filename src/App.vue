@@ -12,11 +12,6 @@ export default {
   components: {
     CoreNavBar,
   },
-  watch: {
-    $route(to, from) {
-      console.log("here the route is changing ", to, from);
-    },
-  },
 };
 </script>
 

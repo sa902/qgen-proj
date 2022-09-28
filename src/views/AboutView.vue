@@ -1,5 +1,8 @@
 <template>
-  <div></div>
+  <div>
+    This is a simple Dog viewing app made in Vue! Login to see the life of your
+    average dog
+  </div>
 </template>
 <script>
 export default {

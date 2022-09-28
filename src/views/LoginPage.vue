@@ -9,7 +9,6 @@
             type="email"
             v-model="email"
             placeholder="Email"
-            autocomplete="nope"
           />
         </div>
         <div class="login-form__input-field">
@@ -18,7 +17,6 @@
             type="password"
             v-model="password"
             placeholder="Password"
-            autocomplete="new-password"
           />
         </div>
       </div>
