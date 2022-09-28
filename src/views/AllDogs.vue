@@ -23,7 +23,7 @@
           :data="dog"
           :title="dog.breeds[0]?.name"
         >
-          <template v-if="isLarge" slot="card-highlight__body-append">
+          <template v-if="isLarge" slot="card-highlight__body-prepend">
             <br />
             Name: {{ dog.breeds[0]?.name }} &nbsp;
             <br />
@@ -35,6 +35,9 @@
             <br />
             Height (cm) x Weight (cm) = {{ dog.breeds[0]?.height?.metric }} x
             {{ dog.breeds[0]?.weight?.metric }}
+          </template>
+          <template v-if="isLarge" slot="card-highlight__body-append">
+            <CoreTimeline></CoreTimeline>
           </template>
         </Card>
       </div>
@@ -61,6 +64,8 @@ import DropdownMenu from "@/components/DropdownMenu";
 import FilterBar from "@/components/FilterBar";
 import CoreTable from "@/components/CoreTable";
 import SkeletonLoader from "@/components/SkeletonLoader";
+import CoreTimeline from "@/components/CoreTimeline";
+import generateRandomTimelineData from "@/libs/generateRandomTimelineData";
 export default {
   name: "AllDogs",
   components: {
@@ -70,6 +75,7 @@ export default {
     FilterBar,
     CoreTable,
     SkeletonLoader,
+    CoreTimeline,
   },
   data: () => ({
     columns: [
@@ -92,6 +98,8 @@ export default {
     ],
   }),
   created() {
+    let response = generateRandomTimelineData();
+    console.log("+++++ this is the ersponse ", response);
     this.getDogTypes();
     this.$store.dispatch("setAllDogs");
   },
