@@ -2,7 +2,8 @@
   <nav class="main-nav">
     |
     <router-link class="main-nav__link" to="/">Home</router-link> |
-    <router-link class="main-nav__link" to="/about">About</router-link> |
+    <router-link class="main-nav__link" to="/about">About</router-link>
+    |
   </nav>
 </template>
 

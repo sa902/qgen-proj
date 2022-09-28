@@ -1,5 +1,17 @@
 # qgen-proj
 
+## For docker based usage
+### Setup
+```
+docker build -t qgen .
+```
+
+###
+```
+docker run -it -p 8080:8080 --name qgen qgen
+```
+
+
 ## Project setup
 ```
 yarn install
