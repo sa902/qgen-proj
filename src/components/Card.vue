@@ -3,7 +3,7 @@
     <div class="card-highlight__wrapper">
       <div class="card-highlight__header">
         <h2 class="card-highlight__title">
-          {{ data.name }}
+          {{ title }}
         </h2>
         <div class="card-highlight__icon">
           <slot name="card-highlight__icon" />
@@ -49,6 +49,10 @@ export default {
       type: Object,
       required: false,
     },
+    title: {
+      type: String,
+      required: false,
+    },
     backgroundColor: {
       type: String,
       required: false,
@@ -81,7 +85,9 @@ export default {
     },
   },
   methods: {},
-  created() {},
+  created() {
+    console.log("this is the card deata ", this.data);
+  },
 };
 </script>
 

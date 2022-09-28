@@ -5,13 +5,33 @@
     <CustomToggle @slide="toggleTwo"></CustomToggle>
     <dropdown-menu
       label-text="Choose a Dog"
-      v-if="allDogTypes"
       :items="allDogTypes"
       @selectedItem="selectedDog"
     >
     </dropdown-menu>
     <div class="main-page__body">
-      <Card v-for="(dog, i) in dogs" :key="i" :data="dog"> </Card>
+      <Card
+        v-for="(dog, i) in dogs"
+        :key="i"
+        :data="dog"
+        :title="dog.breeds[0]?.name"
+      >
+        <template slot="card-highlight__body-append">
+          <br />
+          Name: {{ dog.breeds[0]?.name }} &nbsp;
+          <br />
+          Breed Group: {{ dog.breeds[0]?.breed_group }}
+          <br />
+          Height: {{ dog.breeds[0]?.height_metric }}
+          <br />
+          Life Span: {{ dog.breeds[0]?.life_span }}
+          <br />
+          Temperament: {{ dog.breeds[0]?.temperament }}
+          <br />
+          Height (cm) x Weight (cm) = {{ dog.breeds[0]?.height?.metric }} x
+          {{ dog.breeds[0]?.weight?.metric }}
+        </template>
+      </Card>
       <CustomPagination
         :total="getTotalPages"
         :page-size="limit"
@@ -38,7 +58,7 @@ export default {
     DropdownMenu,
   },
   data: () => ({
-    order: "Desc",
+    order: "Asc",
     limit: 10,
     page: 1,
     paginationCount: 0,
@@ -99,6 +119,11 @@ export default {
   methods: {
     toggleOne() {
       console.log("toggle one event ");
+    },
+    validate(ev) {
+      // TODO validate functino for the things in the card
+      console.log("THIS IS A TEST ", ev);
+      return "this is a " + ev;
     },
     getDogTypes() {
       if (this.$store.getters.getDogTypes === null) {

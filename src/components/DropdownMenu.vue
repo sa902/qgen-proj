@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="items">
     {{ $store.getters.getSelectedDogBreedID }}
     <slot name="label">
       <label>{{ labelText }} &nbsp;</label>
@@ -30,7 +30,7 @@ export default {
       type: String,
     },
     items: {
-      required: true,
+      required: false,
       type: Array,
     },
   },
