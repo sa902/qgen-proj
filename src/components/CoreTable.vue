@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="data" style="width: 100%">
+    <el-table :data="data">
       <!--      <el-table-column prop="name" label="Name" width="180"> </el-table-column>-->
       <!--      <el-table-column prop="bredFor" label="Bred For" width="180">-->
       <!--      </el-table-column>-->

@@ -36,7 +36,7 @@
         </Card>
       </div>
 
-      <div v-if="isTableView" class="">
+      <div v-if="isTableView" class="main-page__body--table-view">
         <CoreTable :data="mappedDogs" :columns="columns"></CoreTable>
       </div>
     </div>
@@ -193,6 +193,7 @@ export default {
 
 .main-page {
   &__body {
+    display: flex;
     &--card-view {
       display: flex;
       justify-content: center;
@@ -207,6 +208,18 @@ export default {
         flex-wrap: wrap;
         column-gap: 1em;
         row-gap: 1em;
+      }
+    }
+    &--table-view {
+      //display: flex;
+      //justify-content: space-evenly;
+      //flex-direction: row;
+      //flex-wrap: wrap;
+      //column-gap: 1em;
+      //row-gap: 1em;
+      width: 100%;
+      @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+        flex-grow: 100;
       }
     }
   }
