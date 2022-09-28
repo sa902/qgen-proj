@@ -50,7 +50,6 @@
 <script>
 import Card from "@/components/CoreCard";
 import CustomPagination from "@/components/CustomPagination";
-import axios from "axios";
 import DropdownMenu from "@/components/DropdownMenu";
 import FilterBar from "@/components/FilterBar";
 
@@ -62,17 +61,9 @@ export default {
     DropdownMenu,
     FilterBar,
   },
-  data: () => ({
-    order: "Asc",
-    limit: 10,
-    page: 1,
-    paginationCount: 0,
-    // dogs: null,
-    breedID: null,
-  }),
+  data: () => ({}),
   created() {
     this.getDogTypes();
-    // this.updateDogsList();
     this.$store.dispatch("setAllDogs");
   },
   watch: {
@@ -83,12 +74,6 @@ export default {
   computed: {
     dogs() {
       return this.$store.getters.getAllDogs;
-    },
-    getBreedID() {
-      //use null as a breed id to get all dogs
-      let result = this.breedID === "0" ? null : this.breedID;
-      console.log("this is the result in get breed id ", result);
-      return result;
     },
     allDogTypes() {
       let all = {
@@ -112,10 +97,6 @@ export default {
     },
     getPageSize() {
       return parseInt(this.$store.getters.getLimit);
-      // return this.limit;
-    },
-    getAPIKey() {
-      return this.$store.getters.getApiKey;
     },
     isLarge() {
       if (this.$store.getters.getCardSize === "large") {
@@ -137,41 +118,15 @@ export default {
       }
     },
     selectedDog(ev) {
-      this.breedID = ev;
       this.$store.dispatch("setBreedID", ev);
-      // this.updateDogsList();
       this.$store.dispatch("setAllDogs");
       console.log("this is the selected dog ", ev);
     },
     onPageChange(ev) {
       //TODO add something here that deletes all the dogs and triggers a reload skeleton
-      //reload the dog page, set the page and call again.
-      // this.page = ev;
-      // this.updateDogsList();
-      // this.$store.dispatch("setAllDogs");
       this.$store.dispatch("setPage", ev);
       this.$store.dispatch("setAllDogs");
       console.log("the pagination page changed", ev);
-    },
-    updateDogsList() {
-      let queryParams = {
-        limit: this.limit,
-        order: this.order,
-        page: this.page - 1,
-        breed_id: this.getBreedID,
-      };
-      // if (this.breedID !== null) {
-      //   queryParams.breed_id = this.breedID;
-      // }
-      axios
-        .get("https://api.thedogapi.com/v1/images/search", {
-          headers: { "x-api-key": this.getAPIKey },
-          params: queryParams,
-        })
-        .then((response) => {
-          this.paginationCount = response.headers["pagination-count"];
-          this.dogs = response.data;
-        });
     },
   },
 };
