@@ -39,7 +39,7 @@
     <div class="main-page__footer">
       <CustomPagination
         :total="getTotalPages"
-        :page-size="limit"
+        :page-size="getPageSize"
         @pageChange="onPageChange($event)"
       >
       </CustomPagination>
@@ -67,12 +67,13 @@ export default {
     limit: 10,
     page: 1,
     paginationCount: 0,
-    dogs: null,
+    // dogs: null,
     breedID: null,
   }),
   created() {
     this.getDogTypes();
-    this.updateDogsList();
+    // this.updateDogsList();
+    this.$store.dispatch("setAllDogs");
   },
   watch: {
     dogs(nv, ov) {
@@ -80,6 +81,9 @@ export default {
     },
   },
   computed: {
+    dogs() {
+      return this.$store.getters.getAllDogs;
+    },
     getBreedID() {
       //use null as a breed id to get all dogs
       let result = this.breedID === "0" ? null : this.breedID;
@@ -99,16 +103,16 @@ export default {
       }
     },
     getTotalPages() {
-      // let limit = parseInt(this.$store.getters.getLimit);
-      // let pagination_count = parseInt(this.$store.getters.getPaginationCount);
+      let pagination_count = parseInt(this.$store.getters.getPaginationCount);
       console.log(
         "this is the new total pages ",
         Math.floor(this.paginationCount / this.limit) | 0
       );
-      return parseInt(this.paginationCount);
+      return parseInt(pagination_count);
     },
     getPageSize() {
-      return this.limit;
+      return parseInt(this.$store.getters.getLimit);
+      // return this.limit;
     },
     getAPIKey() {
       return this.$store.getters.getApiKey;
@@ -134,16 +138,19 @@ export default {
     },
     selectedDog(ev) {
       this.breedID = ev;
-      this.updateDogsList();
+      this.$store.dispatch("setBreedID", ev);
+      // this.updateDogsList();
+      this.$store.dispatch("setAllDogs");
       console.log("this is the selected dog ", ev);
     },
     onPageChange(ev) {
       //TODO add something here that deletes all the dogs and triggers a reload skeleton
       //reload the dog page, set the page and call again.
-      this.page = ev;
-      this.updateDogsList();
-      // this.$store.dispatch("setPage", ev);
+      // this.page = ev;
+      // this.updateDogsList();
       // this.$store.dispatch("setAllDogs");
+      this.$store.dispatch("setPage", ev);
+      this.$store.dispatch("setAllDogs");
       console.log("the pagination page changed", ev);
     },
     updateDogsList() {
@@ -162,7 +169,6 @@ export default {
           params: queryParams,
         })
         .then((response) => {
-          console.log("this is the query reszponse ", response);
           this.paginationCount = response.headers["pagination-count"];
           this.dogs = response.data;
         });

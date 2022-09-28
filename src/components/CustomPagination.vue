@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pagination-main">
     <el-pagination
       @current-change="onchange($event)"
       layout="prev, pager, next"
@@ -65,4 +65,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.pagination-main {
+  padding: 10px;
+  margin: 10px;
+}
+</style>

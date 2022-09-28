@@ -13,11 +13,12 @@ export default new Vuex.Store({
     allDogs: null,
     dogTypes: null,
     //
-    order: "Desc",
+    order: "Asc",
     page: 1,
     limit: 10,
     pagination_count: 0,
     cardSize: "large",
+    breedID: null,
   },
   getters: {
     getApiKey: (state) => state.apiKey,
@@ -30,8 +31,10 @@ export default new Vuex.Store({
     getPaginationCount: (state) => state.pagination_count,
     getPage: (state) => state.page,
     getCardSize: (state) => state.cardSize,
+    getBreedID: (state) => state.breedID,
   },
   mutations: {
+    setBreedID: (state, breedID) => (state.breedID = breedID),
     setSelectedDogBreedID: (state, newDogSelection) =>
       (state.selectedDogBreedID = newDogSelection),
     setSelectedDogList: (state, selectedDogList) =>
@@ -46,6 +49,9 @@ export default new Vuex.Store({
     setCardSize: (state, cardSize) => (state.cardSize = cardSize),
   },
   actions: {
+    setBreedID({ commit }, breedID) {
+      commit("setBreedID", breedID);
+    },
     setCardSize({ commit }, cardSize) {
       console.log("changing the state of the cards yo ");
       commit("setCardSize", cardSize);
@@ -91,6 +97,7 @@ export default new Vuex.Store({
       commit("setOrder", "Desc");
     },
     setAllDogs({ commit, state }) {
+      let breedID = state.breedID === "0" ? null : state.breedID;
       axios
         .get("https://api.thedogapi.com/v1/images/search", {
           headers: { "x-api-key": state.apiKey },
@@ -98,6 +105,7 @@ export default new Vuex.Store({
             limit: state.limit,
             order: state.order,
             page: state.page - 1,
+            breed_id: breedID,
           },
         })
         .then((response) => {
