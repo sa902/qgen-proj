@@ -60,13 +60,15 @@ export default {
 
 .login-form {
   background: #fff;
-  width: 500px;
+  width: 90%;
   margin: 65px auto;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
   box-shadow: variables.$card-highlight__hover-box-shadow;
-
+  @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
+    width: 60%;
+  }
   &__title {
     padding: 35px 35px 0 35px;
     font-weight: 300;
