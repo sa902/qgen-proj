@@ -13,7 +13,7 @@
       </template>
     </FilterBar>
     <div class="main-page__body">
-      <div v-if="!isTableView" class="main-page__body--card-view">
+      <div v-if="!isTableView" class="main-page__body__card-view">
         <Card
           v-for="(dog, i) in dogs"
           :key="i"
@@ -35,6 +35,10 @@
           </template>
         </Card>
       </div>
+
+      <div v-if="isTableView" class="">
+        <CoreTable :data="mappedDogs" :columns="columns"></CoreTable>
+      </div>
     </div>
     <div class="main-page__footer">
       <CustomPagination
@@ -52,6 +56,7 @@ import Card from "@/components/CoreCard";
 import CustomPagination from "@/components/CustomPagination";
 import DropdownMenu from "@/components/DropdownMenu";
 import FilterBar from "@/components/FilterBar";
+import CoreTable from "@/components/CoreTable";
 
 export default {
   name: "AllDogs",
@@ -60,8 +65,28 @@ export default {
     CustomPagination,
     DropdownMenu,
     FilterBar,
+    CoreTable,
   },
-  data: () => ({}),
+  data: () => ({
+    columns: [
+      {
+        prop: "name",
+        label: "Name",
+      },
+      {
+        prop: "bredFor",
+        label: "Bred For",
+      },
+      {
+        prop: "breedGroup",
+        label: "Breed Group",
+      },
+      {
+        prop: "lifeSpan",
+        label: "Life Span",
+      },
+    ],
+  }),
   created() {
     this.getDogTypes();
     this.$store.dispatch("setAllDogs");
@@ -74,6 +99,21 @@ export default {
   computed: {
     dogs() {
       return this.$store.getters.getAllDogs;
+    },
+    mappedDogs() {
+      let allDogs = this.$store.getters.getAllDogs;
+      let mappedDogsArray = allDogs.map((x) => {
+        console.log("this is x.name inside th map ", x.breeds[0]?.name);
+        const container = {};
+        container["name"] = x.breeds[0]?.name;
+        container["bredFor"] = x.breeds[0]?.bred_for;
+        container["lifeSpan"] = x.breeds[0]?.life_span;
+        container["breedGroup"] = x.breeds[0]?.breed_group;
+        return container;
+      });
+      console.log(mappedDogsArray);
+      return mappedDogsArray;
+      // return this.$store.getters.getAllDogs;
     },
     isTableView() {
       return this.$store.getters.getTableView ? true : false;
@@ -153,14 +193,13 @@ export default {
 
 .main-page {
   &__body {
-    &--card-view {
+    &__card-view {
       display: flex;
       justify-content: center;
       flex-direction: column;
       flex-wrap: wrap;
       column-gap: 1em;
       row-gap: 1em;
-
       @media only screen and (min-width: map-get( variables.$grid-breakpoints, "md")) {
         display: flex;
         justify-content: space-evenly;
