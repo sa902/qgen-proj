@@ -72,6 +72,7 @@ export default new Vuex.Store({
       commit("setOrder", "Desc");
     },
     setAllDogs({ commit, state }) {
+      console.log("inside set all dogs ");
       let breedID = state.breedID === "0" ? null : state.breedID;
       axios
         .get("https://api.thedogapi.com/v1/images/search", {

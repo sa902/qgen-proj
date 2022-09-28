@@ -25,8 +25,6 @@
           <br />
           Breed Group: {{ dog.breeds[0]?.breed_group }}
           <br />
-          Height: {{ dog.breeds[0]?.height_metric }}
-          <br />
           Life Span: {{ dog.breeds[0]?.life_span }}
           <br />
           Temperament: {{ dog.breeds[0]?.temperament }}
