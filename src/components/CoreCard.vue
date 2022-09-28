@@ -27,7 +27,7 @@
         <slot name="card-highlight__body-append" />
       </div>
       <div class="card-highlight__footer">
-        Published: {{ newsDate }}
+        <slot name="card-highlight__footer"></slot>
         <div class="card-highlight__actions">
           <slot name="card-highlight__actions" />
         </div>
@@ -37,8 +37,6 @@
 </template>
 
 <script>
-import variables from "../assets/_variables.scss";
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Card",
@@ -52,11 +50,6 @@ export default {
     title: {
       type: String,
       required: false,
-    },
-    backgroundColor: {
-      type: String,
-      required: false,
-      default: variables.defaultcardHighlightColor,
     },
     fallbackImage: {
       type: String,

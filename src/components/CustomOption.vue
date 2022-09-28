@@ -9,7 +9,7 @@ export default {
   name: "CustomOption",
   computed: {
     isSelected() {
-      if (this.value === parseInt(this.$store.getters.getBreedID)) {
+      if (this.value === this.selectedValue) {
         return "selected";
       } else {
         return null;

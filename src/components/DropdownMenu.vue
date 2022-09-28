@@ -3,7 +3,7 @@
     <slot name="label">
       <label>{{ labelText }} &nbsp;</label>
     </slot>
-    <select name="dogs" id="dogs" @change="selectedDog($event)">
+    <select :name="name" @change="selectedDog($event)">
       <CustomOption
         v-for="(item, i) in items"
         :key="i"
@@ -36,6 +36,10 @@ export default {
     selectedValue: {
       required: false,
       type: Number,
+    },
+    name: {
+      required: true,
+      type: String,
     },
   },
   computed: {},

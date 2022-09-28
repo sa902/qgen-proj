@@ -1,8 +1,8 @@
 <template>
-  <nav>
+  <nav class="main-nav">
     |
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
+    <router-link class="main-nav__link" to="/">Home</router-link> |
+    <router-link class="main-nav__link" to="/about">About</router-link> |
   </nav>
 </template>
 
@@ -12,15 +12,14 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use "@/assets/_variables.scss";
 
-nav {
+.main-nav {
   padding: 30px;
-  a {
+  &__link {
     font-weight: bold;
     color: variables.$main-nav__link-color;
-
     &.router-link-exact-active {
       color: variables.$main-nav__link-selected-color;
     }

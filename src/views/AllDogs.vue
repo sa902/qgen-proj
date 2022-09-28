@@ -7,6 +7,7 @@
             label-text="Choose a Dog"
             :items="allDogTypes"
             @selectedItem="selectedDog"
+            name="dogsDropdown"
             :selected-value="currentSelectedDog"
           >
           </dropdown-menu>
@@ -175,7 +176,6 @@ export default {
       console.log("this is the selected dog ", ev);
     },
     onPageChange(ev) {
-      //TODO add something here that deletes all the dogs and triggers a reload skeleton
       this.$store.dispatch("setPage", ev);
       this.$store.dispatch("setAllDogs");
       console.log("the pagination page changed", ev);

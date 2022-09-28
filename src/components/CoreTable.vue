@@ -1,11 +1,6 @@
 <template>
   <div>
     <el-table :data="data">
-      <!--      <el-table-column prop="name" label="Name" width="180"> </el-table-column>-->
-      <!--      <el-table-column prop="bredFor" label="Bred For" width="180">-->
-      <!--      </el-table-column>-->
-      <!--      <el-table-column prop="breedGroup" label="Breed Group"> </el-table-column>-->
-      <!--      <el-table-column prop="lifeSpan" label="Life Span"> </el-table-column>-->
       <el-table-column
         v-for="(column, i) in columns"
         :key="i"
