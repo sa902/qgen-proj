@@ -3,8 +3,7 @@
     All Dogs
     <CustomToggle @slide="toggleOne($event)"></CustomToggle>
     <CustomToggle @slide="toggleTwo"></CustomToggle>
-    <font-awesome-icon icon="fa-solid fa-table" @click="toggleTwo">
-    </font-awesome-icon>
+    <FilterBar></FilterBar>
     <dropdown-menu
       label-text="Choose a Dog"
       :items="allDogTypes"
@@ -50,6 +49,7 @@ import CustomPagination from "@/components/CustomPagination";
 import CustomToggle from "@/components/CustomToggle";
 import axios from "axios";
 import DropdownMenu from "@/components/DropdownMenu";
+import FilterBar from "@/components/FilterBar";
 
 export default {
   name: "AllDogs",
@@ -58,6 +58,7 @@ export default {
     CustomPagination,
     CustomToggle,
     DropdownMenu,
+    FilterBar,
   },
   data: () => ({
     order: "Asc",
@@ -77,13 +78,6 @@ export default {
     },
   },
   computed: {
-    // dogs() {
-    //   console.log(
-    //     "inside our dogs function huh? ",
-    //     this.$store.getters.getAllDogs
-    //   );
-    //   return this.$store.getters.getAllDogs;
-    // },
     getBreedID() {
       //use null as a breed id to get all dogs
       let result = this.breedID === "0" ? null : this.breedID;
@@ -188,6 +182,19 @@ export default {
 
 <style lang="scss">
 @use "@/assets/_variables.scss";
+
+.default-color {
+  color: rgba(105, 105, 105, 0.98);
+}
+.selected-color {
+  color: #4848fc;
+}
+.white-color {
+  color: #000000;
+}
+.yellow-color {
+  color: yellow;
+}
 
 .main-page {
   &__body {

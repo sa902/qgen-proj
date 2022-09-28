@@ -47,6 +47,7 @@ export default new Vuex.Store({
   },
   actions: {
     setCardSize({ commit }, cardSize) {
+      console.log("changing the state of the cards yo ");
       commit("setCardSize", cardSize);
     },
     setSelectedDogBreedID({ commit, state }, newDogSelection) {
