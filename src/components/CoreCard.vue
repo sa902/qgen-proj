@@ -82,7 +82,7 @@ export default {
       let cardSize = this.$store.getters.getCardSize;
       if (cardSize === "large") {
         return {
-          "max-width": "50%",
+          "max-width": "80%",
         };
       } else {
         return {

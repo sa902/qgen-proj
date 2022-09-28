@@ -13,7 +13,7 @@
       </template>
     </FilterBar>
     <div class="main-page__body">
-      <div v-if="!isTableView" class="main-page__body__card-view">
+      <div v-if="!isTableView" class="main-page__body--card-view">
         <Card
           v-for="(dog, i) in dogs"
           :key="i"
@@ -193,10 +193,10 @@ export default {
 
 .main-page {
   &__body {
-    &__card-view {
+    &--card-view {
       display: flex;
       justify-content: center;
-      flex-direction: column;
+      flex-direction: row;
       flex-wrap: wrap;
       column-gap: 1em;
       row-gap: 1em;
