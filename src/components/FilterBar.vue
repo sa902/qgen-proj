@@ -1,5 +1,8 @@
 <template>
   <div class="flex-container">
+    <!--    <span class="">-->
+    <slot name="prepend"></slot>
+    <!--    </span>-->
     <span class="flex-item">
       <font-awesome-icon
         @mouseover="hoveringBig = true"

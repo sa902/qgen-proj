@@ -3,13 +3,18 @@
     All Dogs
     <CustomToggle @slide="toggleOne($event)"></CustomToggle>
     <CustomToggle @slide="toggleTwo"></CustomToggle>
-    <FilterBar></FilterBar>
-    <dropdown-menu
-      label-text="Choose a Dog"
-      :items="allDogTypes"
-      @selectedItem="selectedDog"
-    >
-    </dropdown-menu>
+    <FilterBar>
+      <template slot="prepend">
+        <span class="flex-item">
+          <dropdown-menu
+            label-text="Choose a Dog"
+            :items="allDogTypes"
+            @selectedItem="selectedDog"
+          >
+          </dropdown-menu>
+        </span>
+      </template>
+    </FilterBar>
     <div class="main-page__body">
       <Card
         v-for="(dog, i) in dogs"
