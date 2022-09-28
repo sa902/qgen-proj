@@ -18,6 +18,7 @@ import {
   faTableCellsLarge,
   faCircle,
   faCoffee,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
@@ -27,7 +28,8 @@ library.add(
   faCircle,
   faCoffee,
   faTableCells,
-  faTableCellsLarge
+  faTableCellsLarge,
+  faSpinner
 );
 
 /* add font awesome icon component */

@@ -79,6 +79,7 @@ export default new Vuex.Store({
       commit("setOrder", "Desc");
     },
     setAllDogs({ commit, state }) {
+      commit("setAllDogs", null);
       console.log("inside set all dogs ");
       let breedID = state.breedID === "0" ? null : state.breedID;
       axios

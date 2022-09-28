@@ -13,7 +13,8 @@
         </span>
       </template>
     </FilterBar>
-    <div class="main-page__body">
+    <SkeletonLoader v-if="loading"></SkeletonLoader>
+    <div class="main-page__body" v-if="!loading">
       <div v-if="!isTableView" class="main-page__body--card-view">
         <Card
           v-for="(dog, i) in dogs"
@@ -58,7 +59,7 @@ import CustomPagination from "@/components/CustomPagination";
 import DropdownMenu from "@/components/DropdownMenu";
 import FilterBar from "@/components/FilterBar";
 import CoreTable from "@/components/CoreTable";
-
+import SkeletonLoader from "@/components/SkeletonLoader";
 export default {
   name: "AllDogs",
   components: {
@@ -67,6 +68,7 @@ export default {
     DropdownMenu,
     FilterBar,
     CoreTable,
+    SkeletonLoader,
   },
   data: () => ({
     columns: [
@@ -103,6 +105,9 @@ export default {
     },
     dogs() {
       return this.$store.getters.getAllDogs;
+    },
+    loading() {
+      return this.$store.getters.getAllDogs ? false : true;
     },
     mappedDogs() {
       let allDogs = this.$store.getters.getAllDogs;
@@ -181,19 +186,6 @@ export default {
 
 <style lang="scss">
 @use "@/assets/_variables.scss";
-
-.default-color {
-  color: rgba(105, 105, 105, 0.98);
-}
-.selected-color {
-  color: #4848fc;
-}
-.white-color {
-  color: #000000;
-}
-.yellow-color {
-  color: yellow;
-}
 
 .main-page {
   &__body {
