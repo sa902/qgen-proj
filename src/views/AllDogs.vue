@@ -24,20 +24,24 @@
           :title="dog.breeds[0]?.name"
         >
           <template v-if="isLarge" slot="card-highlight__body-prepend">
-            <br />
-            Name: {{ dog.breeds[0]?.name }} &nbsp;
-            <br />
-            Breed Group: {{ dog.breeds[0]?.breed_group }}
-            <br />
-            Life Span: {{ dog.breeds[0]?.life_span }}
-            <br />
-            Temperament: {{ dog.breeds[0]?.temperament }}
-            <br />
-            Height (cm) x Weight (cm) = {{ dog.breeds[0]?.height?.metric }} x
-            {{ dog.breeds[0]?.weight?.metric }}
+            <div class="card-highlight__body-prepend">
+              <br />
+              Name: {{ dog.breeds[0]?.name }} &nbsp;
+              <br />
+              Breed Group: {{ dog.breeds[0]?.breed_group }}
+              <br />
+              Life Span: {{ dog.breeds[0]?.life_span }}
+              <br />
+              Temperament: {{ dog.breeds[0]?.temperament }}
+              <br />
+              Height (cm) x Weight (cm) = {{ dog.breeds[0]?.height?.metric }} x
+              {{ dog.breeds[0]?.weight?.metric }}
+            </div>
           </template>
           <template v-if="isLarge" slot="card-highlight__body-append">
-            <CoreTimeline></CoreTimeline>
+            <div class="card-highlight__body-append">
+              <CoreTimeline :activities="dog.timeline"></CoreTimeline>
+            </div>
           </template>
         </Card>
       </div>
@@ -98,8 +102,6 @@ export default {
     ],
   }),
   created() {
-    let response = generateRandomTimelineData();
-    console.log("+++++ this is the ersponse ", response);
     this.getDogTypes();
     this.$store.dispatch("setAllDogs");
   },
@@ -113,7 +115,12 @@ export default {
       return parseInt(this.$store.getters.getBreedID);
     },
     dogs() {
-      return this.$store.getters.getAllDogs;
+      let allDogs = this.$store.getters.getAllDogs;
+      allDogs.map((dog) => {
+        dog.timeline = generateRandomTimelineData();
+      });
+      console.log(allDogs);
+      return allDogs;
     },
     loading() {
       return this.$store.getters.getAllDogs ? false : true;

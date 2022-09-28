@@ -138,6 +138,14 @@ export default {
 
   &__body {
     flex: 1 0 auto;
+    &-prepend {
+      margin: 10px;
+      padding: 10px;
+    }
+    &-append {
+      margin: 10px;
+      padding: 10px;
+    }
   }
 
   &__image {

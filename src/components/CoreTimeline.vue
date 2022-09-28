@@ -3,6 +3,7 @@
     <el-timeline class="timeline__item">
       <el-timeline-item
         class=""
+        color="blue"
         v-for="(activity, index) in activities"
         :key="index"
         :timestamp="activity.timestamp"
@@ -14,24 +15,15 @@
 </template>
 <script>
 export default {
+  name: "CoreTimeline",
+  props: {
+    activities: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
-    return {
-      reverse: true,
-      activities: [
-        {
-          content: "Event start",
-          timestamp: "09/12/2010",
-        },
-        {
-          content: "Approved",
-          timestamp: "2018-04-13",
-        },
-        {
-          content: "Success",
-          timestamp: "2018-04-11",
-        },
-      ],
-    };
+    return {};
   },
 };
 </script>
