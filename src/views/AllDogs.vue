@@ -1,8 +1,5 @@
 <template>
-  <div>
-    All Dogs
-    <CustomToggle @slide="toggleOne($event)"></CustomToggle>
-    <CustomToggle @slide="toggleTwo"></CustomToggle>
+  <div class="main-page">
     <FilterBar>
       <template slot="prepend">
         <span class="flex-item">
@@ -39,19 +36,20 @@
         </template>
       </Card>
     </div>
-    <CustomPagination
-      :total="getTotalPages"
-      :page-size="limit"
-      @pageChange="onPageChange($event)"
-    >
-    </CustomPagination>
+    <div class="main-page__footer">
+      <CustomPagination
+        :total="getTotalPages"
+        :page-size="limit"
+        @pageChange="onPageChange($event)"
+      >
+      </CustomPagination>
+    </div>
   </div>
 </template>
 
 <script>
-import Card from "@/components/Card";
+import Card from "@/components/CoreCard";
 import CustomPagination from "@/components/CustomPagination";
-import CustomToggle from "@/components/CustomToggle";
 import axios from "axios";
 import DropdownMenu from "@/components/DropdownMenu";
 import FilterBar from "@/components/FilterBar";
@@ -61,7 +59,6 @@ export default {
   components: {
     Card,
     CustomPagination,
-    CustomToggle,
     DropdownMenu,
     FilterBar,
   },
@@ -125,14 +122,6 @@ export default {
     },
   },
   methods: {
-    toggleOne(ev) {
-      if (ev) {
-        this.$store.dispatch("setCardSize", "small");
-      } else {
-        this.$store.dispatch("setCardSize", "large");
-      }
-      console.log("toggle one event ", ev);
-    },
     validate(ev) {
       // TODO validate functino for the things in the card
       console.log("THIS IS A TEST ", ev);
@@ -142,9 +131,6 @@ export default {
       if (this.$store.getters.getDogTypes === null) {
         this.$store.dispatch("setDogTypes");
       }
-    },
-    toggleTwo() {
-      console.log("toggle two even ");
     },
     selectedDog(ev) {
       this.breedID = ev;

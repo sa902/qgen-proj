@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Card from "@/components/Card";
+import Card from "@/components/CoreCard";
 import DropdownMenu from "@/components/DropdownMenu";
 import axios from "axios";
 import CustomPagination from "@/components/CustomPagination";
