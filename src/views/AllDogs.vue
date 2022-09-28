@@ -7,6 +7,7 @@
             label-text="Choose a Dog"
             :items="allDogTypes"
             @selectedItem="selectedDog"
+            :selected-value="currentSelectedDog"
           >
           </dropdown-menu>
         </span>
@@ -97,6 +98,9 @@ export default {
     },
   },
   computed: {
+    currentSelectedDog() {
+      return parseInt(this.$store.getters.getBreedID);
+    },
     dogs() {
       return this.$store.getters.getAllDogs;
     },

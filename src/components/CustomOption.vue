@@ -10,7 +10,6 @@ export default {
   computed: {
     isSelected() {
       if (this.value === parseInt(this.$store.getters.getBreedID)) {
-        // console.log("we found it");
         return "selected";
       } else {
         return null;
@@ -24,6 +23,10 @@ export default {
     },
     name: {
       type: String,
+      required: true,
+    },
+    selectedValue: {
+      type: Number,
       required: true,
     },
   },

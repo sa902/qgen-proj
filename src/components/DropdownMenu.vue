@@ -10,6 +10,7 @@
         :id="i"
         :value="item.id"
         :name="item.name"
+        :selected-value="selectedValue"
       >
       </CustomOption>
     </select>
@@ -32,12 +33,12 @@ export default {
       required: false,
       type: Array,
     },
+    selectedValue: {
+      required: false,
+      type: Number,
+    },
   },
-  computed: {
-    // dogs() {
-    //   return this.$store.getters.getDogTypes;
-    // },
-  },
+  computed: {},
   created() {
     this.getDogTypes();
   },

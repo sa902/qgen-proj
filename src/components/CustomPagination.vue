@@ -41,19 +41,6 @@ export default {
       console.log("this is the nv ", nv, "this is the old value ", ov);
     },
   },
-  computed: {
-    // getTotalPages() {
-    //   let limit = this.$store.getters.getLimit;
-    //   let pagination_count = this.$store.getters.getPaginationCount;
-    //   return Math.floor(pagination_count / limit) | 0;
-    // },
-    // getTotalItems() {
-    //   return parseInt(this.$store.getters.getPaginationCount);
-    // },
-    // getPageSize() {
-    //   return parseInt(this.$store.getters.getLimit);
-    // },
-  },
   methods: {
     setKey() {
       this.key = "pagination-" + Math.random();
