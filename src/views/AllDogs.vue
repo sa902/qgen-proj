@@ -3,6 +3,8 @@
     All Dogs
     <CustomToggle @slide="toggleOne($event)"></CustomToggle>
     <CustomToggle @slide="toggleTwo"></CustomToggle>
+    <font-awesome-icon icon="fa-solid fa-table" @click="toggleTwo">
+    </font-awesome-icon>
     <dropdown-menu
       label-text="Choose a Dog"
       :items="allDogTypes"
