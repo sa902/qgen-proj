@@ -1,8 +1,8 @@
-function test() {
-  const options2 = { year: "numeric", month: "numeric", day: "numeric" };
+function getRandomTimelineData() {
+  const options = { year: "numeric", month: "numeric", day: "numeric" };
   const firstDate = randomDate(new Date(2005, 0, 1), new Date());
-  const secondDate = randomDate(new Date(2005, 0, 1), new Date());
-  const thirdDate = randomDate(new Date(2005, 0, 1), new Date());
+  const secondDate = randomDate(firstDate, new Date());
+  const thirdDate = randomDate(secondDate, new Date());
   const firstEvent = getRandomEvent();
   const secondEvent = getRandomEvent();
   const thirdEvent = getRandomEvent();
@@ -10,18 +10,17 @@ function test() {
   const timelineArray = [
     {
       content: firstEvent,
-      timestamp: firstDate.toLocaleDateString("en-US", options2),
+      timestamp: firstDate.toLocaleDateString("en-US", options),
     },
     {
       content: secondEvent,
-      timestamp: secondDate.toLocaleDateString("en-US", options2),
+      timestamp: secondDate.toLocaleDateString("en-US", options),
     },
     {
       content: thirdEvent,
-      timestamp: thirdDate.toLocaleDateString("en-US", options2),
+      timestamp: thirdDate.toLocaleDateString("en-US", options),
     },
   ];
-  // return d.toLocaleDateString("en-US", options2);
   return timelineArray;
 }
 
@@ -48,26 +47,5 @@ function getRandomEvent() {
   ];
   return events[Math.floor(Math.random() * events.length)];
 }
-// activities: [
-//   {
-//     content: "Event start",
-//     timestamp: "09/12/2010",
-//   },
-//   {
-//     content: "Approved",
-//     timestamp: "2018-04-13",
-//   },
-//   {
-//     content: "Success",
-//     timestamp: "2018-04-11",
-//   },
-// ],
 
-// var options = {
-//   weekday: "long",
-//   year: "numeric",
-//   month: "long",
-//   day: "numeric",
-// };
-
-export default test;
+export default getRandomTimelineData;

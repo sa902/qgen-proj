@@ -47,8 +47,8 @@ export default {
     this.getDogTypes();
   },
   methods: {
-    selectedDog(ev) {
-      this.$emit("selectedItem", ev.target.value);
+    selectedDog(selectedDog) {
+      this.$emit("selectedItem", selectedDog.target.value);
     },
     getDogTypes() {
       if (this.$store.getters.getDogTypes === null) {

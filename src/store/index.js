@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import login from "@/libs/MockLoginServer";
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     cardSize: "large",
     breedID: null,
     tableView: false,
+    isAdmin: false,
   },
   getters: {
     getTableView: (state) => state.tableView,
@@ -31,6 +33,7 @@ export default new Vuex.Store({
     getPage: (state) => state.page,
     getCardSize: (state) => state.cardSize,
     getBreedID: (state) => state.breedID,
+    getIsAdmin: (state) => state.isAdmin,
   },
   mutations: {
     setTableView: (state, tableView) => (state.tableView = tableView),
@@ -43,8 +46,21 @@ export default new Vuex.Store({
       (state.pagination_count = pagination_count),
     setPage: (state, page) => (state.page = page),
     setCardSize: (state, cardSize) => (state.cardSize = cardSize),
+    setAdmin: (state, admin) => (state.isAdmin = admin),
   },
   actions: {
+    login({ commit }, loginCredentials) {
+      let authStatus = login(loginCredentials.email, loginCredentials.password);
+      console.log(
+        "this is the shit inside vuex yoooo ",
+        "this is the login status ",
+        authStatus
+      );
+      commit("setAdmin", authStatus);
+    },
+    logout({ commit }) {
+      commit("setAdmin", false);
+    },
     setTableView({ commit }, tableView) {
       commit("setTableView", tableView);
     },

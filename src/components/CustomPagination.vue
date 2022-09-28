@@ -27,8 +27,8 @@ export default {
   created() {},
   watch: {},
   methods: {
-    onchange(ev) {
-      this.$emit("pageChange", ev);
+    onchange(event) {
+      this.$emit("pageChange", event);
     },
   },
 };

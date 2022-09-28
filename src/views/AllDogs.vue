@@ -38,7 +38,10 @@
               {{ dog.breeds[0]?.weight?.metric }}
             </div>
           </template>
-          <template v-if="isLarge" slot="card-highlight__body-append">
+          <template
+            v-if="isLarge && isAdmin"
+            slot="card-highlight__body-append"
+          >
             <div class="card-highlight__body-append">
               <CoreTimeline :activities="dog.timeline"></CoreTimeline>
             </div>
@@ -111,11 +114,18 @@ export default {
     },
   },
   computed: {
+    isAdmin() {
+      return this.$store.getters.getIsAdmin;
+    },
     currentSelectedDog() {
       return parseInt(this.$store.getters.getBreedID);
     },
     dogs() {
       let allDogs = this.$store.getters.getAllDogs;
+      if (allDogs === null) {
+        return null;
+      }
+
       allDogs.map((dog) => {
         dog.timeline = generateRandomTimelineData();
       });
@@ -127,8 +137,10 @@ export default {
     },
     mappedDogs() {
       let allDogs = this.$store.getters.getAllDogs;
-      let mappedDogsArray = allDogs.map((x) => {
-        console.log("this is x.name inside th map ", x.breeds[0]?.name);
+      if (allDogs === null) {
+        return null;
+      }
+      let mappedDogsArray = allDogs?.map((x) => {
         const container = {};
         container["name"] = x.breeds[0]?.name;
         container["bredFor"] = x.breeds[0]?.bred_for;
@@ -136,9 +148,7 @@ export default {
         container["breedGroup"] = x.breeds[0]?.breed_group;
         return container;
       });
-      console.log(mappedDogsArray);
       return mappedDogsArray;
-      // return this.$store.getters.getAllDogs;
     },
     isTableView() {
       return this.$store.getters.getTableView ? true : false;
@@ -175,25 +185,23 @@ export default {
     },
   },
   methods: {
-    validate(ev) {
+    validate(item) {
       // TODO validate functino for the things in the card
-      console.log("THIS IS A TEST ", ev);
-      return "this is a " + ev;
+      console.log("THIS IS A TEST ", item);
+      return "this is a " + item;
     },
     getDogTypes() {
       if (this.$store.getters.getDogTypes === null) {
         this.$store.dispatch("setDogTypes");
       }
     },
-    selectedDog(ev) {
-      this.$store.dispatch("setBreedID", ev);
+    selectedDog(breedID) {
+      this.$store.dispatch("setBreedID", breedID);
       this.$store.dispatch("setAllDogs");
-      console.log("this is the selected dog ", ev);
     },
-    onPageChange(ev) {
-      this.$store.dispatch("setPage", ev);
+    onPageChange(page) {
+      this.$store.dispatch("setPage", page);
       this.$store.dispatch("setAllDogs");
-      console.log("the pagination page changed", ev);
     },
   },
 };
