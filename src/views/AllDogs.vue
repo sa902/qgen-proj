@@ -107,7 +107,8 @@ export default {
       return this.$store.getters.getAllDogs;
     },
     loading() {
-      return this.$store.getters.getAllDogs ? false : true;
+      return true;
+      // return this.$store.getters.getAllDogs ? false : true;
     },
     mappedDogs() {
       let allDogs = this.$store.getters.getAllDogs;

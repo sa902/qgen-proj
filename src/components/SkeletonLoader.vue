@@ -1,5 +1,7 @@
 <template>
-  <font-awesome-icon transform="grow-100" icon="spinner" spin />
+  <div class="skeleton-loader">
+    <font-awesome-icon transform="grow-100" icon="spinner" spin />
+  </div>
 </template>
 
 <script>
@@ -8,4 +10,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.skeleton-loader {
+  height: 50vh;
+}
+</style>
