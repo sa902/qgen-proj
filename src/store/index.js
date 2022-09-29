@@ -51,11 +51,6 @@ export default new Vuex.Store({
   actions: {
     login({ commit }, loginCredentials) {
       let authStatus = login(loginCredentials.email, loginCredentials.password);
-      console.log(
-        "this is the shit inside vuex yoooo ",
-        "this is the login status ",
-        authStatus
-      );
       commit("setAdmin", authStatus);
     },
     logout({ commit }) {
@@ -68,7 +63,6 @@ export default new Vuex.Store({
       commit("setBreedID", breedID);
     },
     setCardSize({ commit }, cardSize) {
-      console.log("changing the state of the cards yo ");
       commit("setTableView", false);
       commit("setCardSize", cardSize);
     },
@@ -96,7 +90,6 @@ export default new Vuex.Store({
     },
     setAllDogs({ commit, state }) {
       commit("setAllDogs", null);
-      console.log("inside set all dogs ");
       let breedID = state.breedID === "0" ? null : state.breedID;
       axios
         .get("https://api.thedogapi.com/v1/images/search", {
@@ -109,11 +102,6 @@ export default new Vuex.Store({
           },
         })
         .then((response) => {
-          console.log("our response is ", response);
-          console.log(
-            "this is the pagination count ",
-            response.headers["pagination-count"]
-          );
           commit("setPaginationCount", response.headers["pagination-count"]);
           commit("setAllDogs", response.data);
         });

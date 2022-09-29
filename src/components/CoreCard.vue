@@ -85,9 +85,7 @@ export default {
     },
   },
   methods: {},
-  created() {
-    console.log("this is the card deata ", this.data);
-  },
+  created() {},
 };
 </script>
 

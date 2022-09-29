@@ -108,11 +108,7 @@ export default {
     this.getDogTypes();
     this.$store.dispatch("setAllDogs");
   },
-  watch: {
-    dogs(nv, ov) {
-      console.log("this is the dogs c hange ", ov, nv);
-    },
-  },
+  watch: {},
   computed: {
     isAdmin() {
       return this.$store.getters.getIsAdmin;
@@ -129,7 +125,6 @@ export default {
       allDogs.map((dog) => {
         dog.timeline = generateRandomTimelineData();
       });
-      console.log(allDogs);
       return allDogs;
     },
     loading() {
@@ -167,10 +162,6 @@ export default {
     },
     getTotalPages() {
       let pagination_count = parseInt(this.$store.getters.getPaginationCount);
-      console.log(
-        "this is the new total pages ",
-        Math.floor(this.paginationCount / this.limit) | 0
-      );
       return parseInt(pagination_count);
     },
     getPageSize() {
@@ -187,7 +178,6 @@ export default {
   methods: {
     validate(item) {
       // TODO validate functino for the things in the card
-      console.log("THIS IS A TEST ", item);
       return "this is a " + item;
     },
     getDogTypes() {
